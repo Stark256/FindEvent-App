@@ -1,0 +1,62 @@
+{
+  "project_info": {
+    "project_number": "370463056112",
+    "firebase_url": "https://famillyapp-5fe60.firebaseio.com",
+    "project_id": "famillyapp-5fe60",
+    "storage_bucket": "famillyapp-5fe60.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:370463056112:android:772d0345e4309ca7",
+        "android_client_info": {
+          "package_name": "com.esketit.myapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "370463056112-loh7o0e8aktj6c6a29m7ke4uuktudbds.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.esketit.myapp",
+            "certificate_hash": "f251685cb5fde5ee95ff4d927d2c72c96b4385f7"
+          }
+        },
+        {
+          "client_id": "370463056112-nbuvgfn16o3a185v74a80olnhrl6k1oi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGuNnuE-Mn0UpSmzqq--uDkLK7TL5uAJE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "370463056112-nbuvgfn16o3a185v74a80olnhrl6k1oi.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "370463056112-45l1uge441mg0biuu9sro0a98hlul9j3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.yurafloka.FamillyOrganizer"
+              }
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
