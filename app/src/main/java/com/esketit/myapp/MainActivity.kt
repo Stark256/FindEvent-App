@@ -15,9 +15,9 @@ class MainActivity : AppCompatActivity() {
 
       //  startActivity(Intent(this, WelcomeActivity::class.java))
 
-        Injector.themesManager.customizeToolbar(toolbar)
-        Injector.themesManager.customizeButton(btn1)
-        Injector.themesManager.customizeTextInputEditText(tiet)
-        Injector.themesManager.customizeTextInputLayout(til)
+        Injector.themesManager.customizeToolbar(this, toolbar)
+        Injector.themesManager.customizeButton(this, btn1)
+        Injector.themesManager.customizeTextInputEditText(this, tiet)
+        Injector.themesManager.customizeTextInputLayout(this, til)
     }
 }

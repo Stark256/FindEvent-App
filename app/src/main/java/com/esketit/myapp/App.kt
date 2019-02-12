@@ -13,10 +13,6 @@ class App: Application(){
         lateinit var instance: App
     }
 
-    fun getContext(): Context {
-        return this
-    }
-
     override fun onCreate() {
         super.onCreate()
         instance = this
@@ -25,6 +21,6 @@ class App: Application(){
 
     private fun initInjector(){
         Injector.auth = FirebaseAuth.getInstance()
-        Injector.themesManager = ThemesManager(this)
+        Injector.themesManager = ThemesManager()
     }
 }
