@@ -13,11 +13,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-      //  startActivity(Intent(this, WelcomeActivity::class.java))
+        startActivity(Intent(this, WelcomeActivity::class.java))
 
-        Injector.themesManager.customizeToolbar(this, toolbar)
-        Injector.themesManager.customizeButton(this, btn1)
-        Injector.themesManager.customizeTextInputEditText(this, tiet)
-        Injector.themesManager.customizeTextInputLayout(this, til)
+//        Injector.themesManager.customizeToolbar(this, toolbar)
+//        Injector.themesManager.customizeButton(this, btn1)
+//        Injector.themesManager.customizeTextInputEditText(this, tiet)
+//        Injector.themesManager.customizeTextInputLayout(this, til)
     }
 }

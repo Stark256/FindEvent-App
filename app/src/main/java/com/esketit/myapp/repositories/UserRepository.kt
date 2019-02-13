@@ -1,5 +1,6 @@
 package com.esketit.myapp.repositories
 
+import com.esketit.myapp.models.firebase.User
 import com.google.firebase.firestore.FirebaseFirestore
 
 class UserRepository{
@@ -9,8 +10,8 @@ class UserRepository{
 
     val db = FirebaseFirestore.getInstance()
 
-    fun addUser(userID: String){
-        db.collection(COLLECTION_USER).document(userID).set("")
+    fun createUser(user: User){
+        db.collection(COLLECTION_USER).document(user.id).set(user.data())
             .addOnSuccessListener {  }
             .addOnFailureListener { exception -> }
     }
@@ -25,11 +26,5 @@ class UserRepository{
                 }
             }
     }
-
-    /*Map<String, Object> user = new HashMap<>();
-user.put("first", "Alan");
-user.put("middle", "Mathison");
-user.put("last", "Turing");
-user.put("born", 1912);*/
 
 }

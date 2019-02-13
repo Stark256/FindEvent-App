@@ -20,17 +20,7 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun btnPressed(){
-        Injector.auth.createUserWithEmailAndPassword(et_email.text.toString(), et_pass.text.toString())
-            .addOnCompleteListener { task: Task<AuthResult> ->
-                if(task.isSuccessful){
-                    Log.i("Sign Up", "Create user success")
-                    Log.i("Sign Up", Injector.auth.currentUser?.uid)
-                    addUserInDB()
-                }else{
-                    Log.i("Sign Up", "Create user failure")
-                    Log.i("Sign Up", task.exception?.message)
-                }
-            }
+        Injector.emailAuth.signUp("testUser@gmail.com", "testUser", "Test User Name")
     }
 
     private fun addUserInDB(){

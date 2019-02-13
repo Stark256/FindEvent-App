@@ -19,16 +19,16 @@ class SignInActivity : AppCompatActivity() {
     }
 
     private fun btnPressed(){
-        Injector.auth.signInWithEmailAndPassword(et_email.text.toString(), et_pass.text.toString())
-            .addOnCompleteListener { task: Task<AuthResult> ->
-                if(task.isSuccessful){
-                    Log.i("Sing In", "Sing in success")
-
-                }else{
-                    Log.i("Sing In", "Sing in failure")
-                    Log.i("Sing In", task.exception?.message)
-                }
-            }
+//        Injector.auth.signInWithEmailAndPassword(et_email.text.toString(), et_pass.text.toString())
+//            .addOnCompleteListener { task: Task<AuthResult> ->
+//                if(task.isSuccessful){
+//                    Log.i("Sing In", "Sing in success")
+//
+//                }else{
+//                    Log.i("Sing In", "Sing in failure")
+//                    Log.i("Sing In", task.exception?.message)
+//                }
+//            }
     }
 
 }
