@@ -5,11 +5,12 @@ import android.os.Bundle
 import android.util.Log
 import com.esketit.myapp.R
 import com.esketit.myapp.managers.Injector
+import com.esketit.myapp.ui.BaseActivity
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import kotlinx.android.synthetic.main.activity_sign_up.*
 
-class SignUpActivity : AppCompatActivity() {
+class SignUpActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,12 +21,9 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun btnPressed(){
-        Injector.emailAuth.signUp("testUser@gmail.com", "testUser", "Test User Name")
+        Injector.emailAuth.signUp("testUser1@gmail.com", "testUser1", "Test User Name 1", {response ->
+            if(!response.success){ showError(response.localizedMessage) }
+        })
     }
-
-    private fun addUserInDB(){
-
-    }
-
 
 }
