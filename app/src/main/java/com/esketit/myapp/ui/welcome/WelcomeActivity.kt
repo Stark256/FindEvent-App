@@ -4,7 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import com.esketit.myapp.MainActivity
+import com.esketit.myapp.ui.main.MainActivity
 import com.esketit.myapp.R
 import com.esketit.myapp.managers.Injector
 import com.esketit.myapp.ui.sing_in.SignInActivity

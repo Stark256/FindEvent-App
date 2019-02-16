@@ -1,8 +1,9 @@
-package com.esketit.myapp
+package com.esketit.myapp.ui.main
 
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import com.esketit.myapp.R
 import com.esketit.myapp.managers.Injector
 import com.esketit.myapp.ui.welcome.WelcomeActivity
 import kotlinx.android.synthetic.main.activity_main.*
