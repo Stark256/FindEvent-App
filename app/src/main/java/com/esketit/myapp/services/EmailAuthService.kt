@@ -15,7 +15,9 @@ class EmailAuthService{
     val currentUser: FirebaseUser?
         get(){ return auth.currentUser }
 
-    val isUserLogged: Boolean = (auth.currentUser != null)
+    val isUserLogged: Boolean
+        get() { return (currentUser != null)}
+
 
     fun signUp(email: String, pass: String, name: String, response: (FirebaseResponse) -> Unit){
         auth.createUserWithEmailAndPassword(email, pass)
@@ -34,6 +36,16 @@ class EmailAuthService{
                 }
             }
     }
+
+
+    fun signIn(email: String, pass: String, response: (FirebaseResponse) -> Unit){
+        auth.signInWithEmailAndPassword(email, pass)
+            .addOnCompleteListener {
+                response(FirebaseResponse(it.isSuccessful, it.exception))
+            }
+    }
+
+
 
     fun signOut(){ auth.signOut() }
 
