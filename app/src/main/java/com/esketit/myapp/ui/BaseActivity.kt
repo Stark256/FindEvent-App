@@ -1,5 +1,6 @@
 package com.esketit.myapp.ui
 
+import android.support.design.widget.TextInputLayout
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import com.esketit.myapp.R
@@ -18,6 +19,9 @@ abstract class BaseActivity: AppCompatActivity(){
             .show()
     }
 
-
+    fun setError(layout: TextInputLayout, error: String?) {
+        layout.isErrorEnabled = error != null
+        layout.error = error
+    }
 
 }

@@ -6,6 +6,7 @@ import android.os.Bundle
 import com.esketit.myapp.R
 import com.esketit.myapp.managers.Injector
 import com.esketit.myapp.ui.BaseActivity
+import com.esketit.myapp.util.FieldsValidatorUtil
 import kotlinx.android.synthetic.main.activity_sing_in.*
 
 class SignInActivity : BaseActivity() {
@@ -21,15 +22,43 @@ class SignInActivity : BaseActivity() {
 
     private fun customizeView(){
         Injector.themesManager.customizeButton(this, btn_sign_in)
+        Injector.themesManager.customizeTextInputEditText(this, et_sign_in_email)
+        Injector.themesManager.customizeTextInputEditText(this, et_sign_in_pass)
+        Injector.themesManager.customizeTextInputLayout(this, ti_sign_in_email)
+        Injector.themesManager.customizeTextInputLayout(this, ti_sign_in_pass)
     }
 
     private fun btnPressed(){
-        Injector.emailAuth.signIn("testUser1@gmail.com", "testUser1", {response ->
-            if(response.success){
-                setResult(Activity.RESULT_OK, Intent())
-                finish()
-            }else{ showError(response.localizedMessage)}
-        })
+        if(fieldValidation()) {
+            Injector.emailAuth.signIn(et_sign_in_email.text.toString(), et_sign_in_pass.text.toString(), { response ->
+                if (response.success) {
+                    setResult(Activity.RESULT_OK, Intent())
+                    finish()
+                } else {
+                    showError(response.localizedMessage)
+                }
+            })
+        }
+    }
+
+    private fun fieldValidation(): Boolean{
+        var isValid = true
+
+        if(checkEmail()) isValid = false
+        if(checkPass()) isValid = false
+
+        return  isValid
+    }
+
+
+    private fun checkEmail(): Boolean{
+        setError(ti_sign_in_email, FieldsValidatorUtil.isEmpty(et_sign_in_email.text.toString(), this))
+        return (ti_sign_in_email.error != null)
+    }
+
+    private fun checkPass(): Boolean{
+        setError(ti_sign_in_pass, FieldsValidatorUtil.isEmpty(et_sign_in_pass.text.toString(), this))
+        return (ti_sign_in_pass.error != null)
     }
 
 }
