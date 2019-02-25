@@ -19,4 +19,11 @@
     <string name="required_write_to_storage_permission">Application needs permission to write at disc</string>
     <string name="reject_permission">Never show</string>
     <string name="permission_required">Requires permission</string>
+
+    <string name="dialog_camera">Camera</string>
+    <string name="dialog_galary">Galary</string>
+    <string name="dialog_remove">Remove</string>
+
+    <string name="add">Add</string>
+    <string name="edit">Edit</string>
 </resources>

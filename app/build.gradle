@@ -39,6 +39,9 @@ dependencies {
     //Logger
     implementation "com.jakewharton.timber:timber:4.7.1"
 
+    //Image crop
+    api "com.theartofdev.edmodo:android-image-cropper:2.7.0"
+
 
     implementation 'com.google.firebase:firebase-firestore:17.1.0'
     testImplementation 'junit:junit:4.12'

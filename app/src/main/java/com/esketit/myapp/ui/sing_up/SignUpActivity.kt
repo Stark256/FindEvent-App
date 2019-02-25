@@ -28,7 +28,7 @@ class SignUpActivity : BaseActivity() {
 
         btn_sing_up.setOnClickListener { btnPressed() }
 
-        iv_sign_up_avatar.setOnClickListener { cameraPressed() }
+//        iv_sign_up_avatar.setOnClickListener { cameraPressed() }
 
         customizeView()
     }
@@ -130,8 +130,8 @@ class SignUpActivity : BaseActivity() {
 
 private fun setImage(uri: Uri){
 
-    civ_sign_up_avatar.setImageURI(uri)
-    iv_sign_up_avatar.visibility = View.GONE
+//    civ_sign_up_avatar.setImageURI(uri)
+//    iv_sign_up_avatar.visibility = View.GONE
 }
 
 
