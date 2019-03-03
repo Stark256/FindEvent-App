@@ -33,4 +33,9 @@
         <item name="android:background">@color/dark</item>
     </style>
 
+    <style name="CommonToolbar" parent="@style/ThemeOverlay.AppCompat.ActionBar">
+        <item name="colorControlNormal">@color/white</item>
+        <item name="titleTextColor">@color/white</item>
+    </style>
+
 </resources>

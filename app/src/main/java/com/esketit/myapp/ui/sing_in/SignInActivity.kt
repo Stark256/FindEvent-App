@@ -1,8 +1,10 @@
 package com.esketit.myapp.ui.sing_in
 
 import android.app.Activity
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import com.esketit.myapp.R
 import com.esketit.myapp.managers.Injector
 import com.esketit.myapp.ui.BaseActivity
@@ -11,17 +13,26 @@ import kotlinx.android.synthetic.main.activity_sing_in.*
 
 class SignInActivity : BaseActivity() {
 
+    private lateinit var viewModel: SignInViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sing_in)
 
-        btn_sign_in.setOnClickListener { btnPressed() }
+        setSupportActionBar(this.toolbar_sign_in, true, false)
 
+        viewModel = ViewModelProviders.of(this).get(SignInViewModel::class.java)
+
+        initView()
+    }
+
+    private fun initView(){
+        btn_sign_in.setOnClickListener { btnPressed() }
     }
 
     private fun btnPressed(){
         if(fieldValidation()) {
-            Injector.emailAuth.signIn(et_sign_in_email.text.toString(), et_sign_in_pass.text.toString(), { response ->
+            viewModel.signInPressed(et_sign_in_email.text.toString(), et_sign_in_pass.text.toString(), { response ->
                 if (response.success) {
                     setResult(Activity.RESULT_OK, Intent())
                     finish()
@@ -30,6 +41,13 @@ class SignInActivity : BaseActivity() {
                 }
             })
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            android.R.id.home -> { this@SignInActivity.onBackPressed() }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun fieldValidation(): Boolean{

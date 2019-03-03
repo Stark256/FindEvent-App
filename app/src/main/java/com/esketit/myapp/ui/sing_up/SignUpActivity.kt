@@ -1,12 +1,15 @@
 package com.esketit.myapp.ui.sing_up
 
 import android.app.Activity
+import android.arch.lifecycle.ViewModelProvider
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.MenuItem
 import com.esketit.myapp.R
 import com.esketit.myapp.managers.Injector
 import com.esketit.myapp.ui.BaseActivity
@@ -26,14 +29,20 @@ class SignUpActivity : BaseActivity() {
 
     private var uri: Uri? = null
 
+    private lateinit var viewModel: SignUpViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
 
+        setSupportActionBar(this.toolbar_sign_up, true, false)
+
+        viewModel = ViewModelProviders.of(this).get(SignUpViewModel::class.java)
 
         initView()
     }
+
+
 
     private fun initView(){
         btn_sing_up.setOnClickListener { btnPressed() }
@@ -57,11 +66,10 @@ class SignUpActivity : BaseActivity() {
 
     private fun btnPressed(){
         if(fieldValidation()) {
-            Injector.emailAuth.signUp(
+            viewModel.signUpPressed(
                 et_sign_up_email.text.toString(),
                 et_sign_up_pass.text.toString(),
-                et_sign_up_name.text.toString(),
-                uri) { response ->
+                et_sign_up_name.text.toString(), uri) { response ->
                 if (response.success) {
                     setResult(Activity.RESULT_OK, Intent())
                     finish()
@@ -72,7 +80,12 @@ class SignUpActivity : BaseActivity() {
         }
     }
 
-
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            android.R.id.home -> { this@SignUpActivity.onBackPressed() }
+        }
+        return super.onOptionsItemSelected(item)
+    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -90,10 +103,9 @@ class SignUpActivity : BaseActivity() {
                 if (resultCode == Activity.RESULT_OK) {
                     data?.extras?.let {
                         val bitmap = it.get("data") as Bitmap
-                        val uri = getBitmapUri(bitmap)
+                        val uri = viewModel.getBitmapUri(bitmap, contentResolver)
                         startCropperActivity(uri)
                     }
-
                 }
             }
 
@@ -101,7 +113,6 @@ class SignUpActivity : BaseActivity() {
                 data?.let {
                     val result: CropImage.ActivityResult = CropImage.getActivityResult(data);
                     if (resultCode == Activity.RESULT_OK) {
-
                         val resultUri = result.getUri();
                         setImage(resultUri)
 
@@ -117,14 +128,6 @@ class SignUpActivity : BaseActivity() {
         this.uri = uri
         eiv_sign_up_avatar.loadImage(uri)
     }
-
-    private fun getBitmapUri(bitmap: Bitmap): Uri {
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, ByteArrayOutputStream());
-        val path = MediaStore.Images.Media.insertImage(contentResolver, bitmap, "itemPhoto", null);
-        return  Uri.parse(path)
-    }
-
-
 
     private fun startCropperActivity(uri: Uri) {
         CropImage.activity(uri)

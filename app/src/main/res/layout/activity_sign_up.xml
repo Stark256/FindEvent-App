@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<android.support.design.widget.CoordinatorLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -8,9 +8,26 @@
         android:orientation="vertical"
         tools:context=".ui.sing_up.SignUpActivity"
         android:background="@color/dark"
-        android:fitsSystemWindows="true"
-        android:padding="32dp">
+        android:fitsSystemWindows="true">
 
+    <android.support.design.widget.AppBarLayout
+            android:id="@+id/appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            app:elevation="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar_sign_up"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="@style/CommonToolbar" />
+
+    </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -25,7 +42,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="parent">
+                app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+                android:padding="32dp">
 
             <com.esketit.myapp.view.EditImageView.EditImageView
                     android:id="@+id/eiv_sign_up_avatar"
@@ -128,4 +146,6 @@
 
     </android.support.v4.widget.NestedScrollView>
 
-</android.support.constraint.ConstraintLayout>
+
+
+</android.support.design.widget.CoordinatorLayout>
