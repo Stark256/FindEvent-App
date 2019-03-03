@@ -8,7 +8,7 @@ import com.google.firebase.auth.FirebaseAuth
 object Injector{
     lateinit var emailAuth: EmailAuthService
 
-    lateinit var themesManager: ThemesManager
+    //lateinit var themesManager: ThemesManager
 
     lateinit var services: FirebaseServices
 
@@ -16,7 +16,7 @@ object Injector{
 
     fun initData(){
         emailAuth = EmailAuthService()
-        themesManager = ThemesManager()
+       // themesManager = ThemesManager()
         services = FirebaseServices()
         permissionManager = PermissionManager()
     }

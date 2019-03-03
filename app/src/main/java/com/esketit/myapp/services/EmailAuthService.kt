@@ -1,8 +1,10 @@
 package com.esketit.myapp.services
 
+import android.net.Uri
 import com.esketit.myapp.managers.Injector
 import com.esketit.myapp.models.firebase.FirebaseResponse
 import com.esketit.myapp.models.firebase.User
+import com.esketit.myapp.models.safeLet
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
@@ -19,21 +21,50 @@ class EmailAuthService{
         get() { return (currentUser != null)}
 
 
-    fun signUp(email: String, pass: String, name: String, response: (FirebaseResponse) -> Unit){
+    fun signUp(email: String, pass: String, name: String, avatarImgURL: Uri?, response: (FirebaseResponse) -> Unit){
         auth.createUserWithEmailAndPassword(email, pass)
             .addOnCompleteListener { task: Task<AuthResult> ->
                 if(task.isSuccessful){
-                    currentUser?.let {
-                        val user = User(email = email,
-                            name = name,
-                            id = it.uid)
-                        Injector.services.userRepository.createUser(user, { firebaseResponse ->
-                            response(FirebaseResponse(firebaseResponse.success, firebaseResponse.exception))
-                        })
+                    val currentUser = currentUser
+
+                    if(avatarImgURL != null) {
+                        currentUser?.let {
+                            Injector.services.storageService.uploadAvatarImage(avatarImgURL,
+                                currentUser.uid) { firebaseResponse, url ->
+                                if (firebaseResponse.success) {
+                                    safeLet(currentUser, url) { firebaseUser, avatarUrl ->
+                                        val user = User(
+                                            email = email,
+                                            name = name,
+                                            id = firebaseUser.uid,
+                                            avatarImgURL = avatarUrl
+                                        )
+                                        Injector.services.userRepository.createUser(user) { firebaseResponse ->
+                                            response(
+                                                FirebaseResponse(
+                                                    firebaseResponse.success,
+                                                    firebaseResponse.exception
+                                                )
+                                            )
+                                        }
+                                    }
+                                } else {
+                                    response(firebaseResponse)
+                                }
+                            }
+                        }
+                    }else{
+                        currentUser?.let {
+                            val user = User(
+                                email = email,
+                                name = name,
+                                id = it.uid)
+                            Injector.services.userRepository.createUser(user) { firebaseResponse ->
+                                response(FirebaseResponse(firebaseResponse.success, firebaseResponse.exception))
+                            }
+                        }
                     }
-                }else{
-                    response(FirebaseResponse(false, task.exception))
-                }
+                }else{ response(FirebaseResponse(false, task.exception)) }
             }
     }
 

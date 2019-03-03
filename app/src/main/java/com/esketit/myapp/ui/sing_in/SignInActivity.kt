@@ -17,15 +17,6 @@ class SignInActivity : BaseActivity() {
 
         btn_sign_in.setOnClickListener { btnPressed() }
 
-        customizeView()
-    }
-
-    private fun customizeView(){
-        Injector.themesManager.customizeButton(this, btn_sign_in)
-        Injector.themesManager.customizeTextInputEditText(this, et_sign_in_email)
-        Injector.themesManager.customizeTextInputEditText(this, et_sign_in_pass)
-        Injector.themesManager.customizeTextInputLayout(this, ti_sign_in_email)
-        Injector.themesManager.customizeTextInputLayout(this, ti_sign_in_pass)
     }
 
     private fun btnPressed(){

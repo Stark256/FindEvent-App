@@ -5,17 +5,19 @@ import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.BaseAdapter
 import com.esketit.myapp.R
 import com.esketit.myapp.managers.Injector
 import kotlinx.android.synthetic.main.item_edit_image_dialog_adapter.view.*
 
-class EditImageDialogAdapter(var array: Array<EditImageDialogItem>, var context: Context): BaseAdapter(){
+class EditImageDialogAdapter(var array: Array<EditImageDialogItem>, val context: Context): BaseAdapter(){
 
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-           val view = LayoutInflater.from(context)
-               .inflate(R.layout.item_edit_image_dialog_adapter, parent, true)
+           val view = LayoutInflater.from(parent?.context)
+               .inflate(R.layout.item_edit_image_dialog_adapter, parent, false)
 
         val item = array[position]
         val title = view.tv_dialog_item_title

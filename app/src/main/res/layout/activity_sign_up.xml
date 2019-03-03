@@ -10,13 +10,21 @@
         android:background="@color/dark"
         android:padding="32dp">
 
-
+    <com.esketit.myapp.view.EditImageView.EditImageView
+            android:id="@+id/eiv_sign_up_avatar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/ti_sign_up_name"
+            app:layout_constraintTop_toTopOf="parent"/>
 
     <android.support.design.widget.TextInputLayout
             android:id="@+id/ti_sign_up_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
+            style="@style/CommonTextInputLayout"
+            android:layout_marginBottom="8dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/ti_sign_up_email">
@@ -26,6 +34,7 @@
             android:id="@+id/et_sign_up_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            style="@style/CommonTextInputEditText"
             android:hint="@string/name"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -37,7 +46,8 @@
             android:id="@+id/ti_sign_up_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
+            style="@style/CommonTextInputLayout"
+            android:layout_marginBottom="8dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/ti_sign_up_pass">
@@ -46,6 +56,7 @@
             android:id="@+id/et_sign_up_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            style="@style/CommonTextInputEditText"
             android:hint="@string/email"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -57,7 +68,8 @@
             android:id="@+id/ti_sign_up_pass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
+            style="@style/CommonTextInputLayout"
+            android:layout_marginBottom="8dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/btn_sing_up">
@@ -66,6 +78,7 @@
             android:id="@+id/et_sign_up_pass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            style="@style/CommonTextInputEditText"
             android:inputType="textPassword"
             android:hint="@string/pass"
             app:layout_constraintStart_toStartOf="parent"
@@ -78,6 +91,7 @@
             android:id="@+id/btn_sing_up"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            style="@style/CommonButtonStyle"
             android:text="@string/sign_up"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

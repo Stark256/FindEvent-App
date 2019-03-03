@@ -29,12 +29,7 @@ class WelcomeActivity : AppCompatActivity() {
         btn_sign_up.setOnClickListener { startActivityForResult(Intent(this, SignUpActivity::class.java), RESULT_SIGN_UP) }
         btn_sign_in.setOnClickListener { startActivityForResult(Intent(this, SignInActivity::class.java), RESULT_SIGN_IN) }
 
-        customizeView()
-    }
 
-    private fun customizeView(){
-        Injector.themesManager.customizeButton(this, btn_sign_in)
-        Injector.themesManager.customizeButton(this, btn_sign_up)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
