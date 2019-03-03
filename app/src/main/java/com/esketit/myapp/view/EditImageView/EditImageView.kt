@@ -45,7 +45,6 @@ class EditImageView @JvmOverloads constructor(
     /*     View Actions     */
 
     fun loadImage(url: String){
-        // TODO make image loading with glade or piccasso
         imageView?.let {
             Glide.with(context)
                 .load(url)
@@ -58,7 +57,6 @@ class EditImageView @JvmOverloads constructor(
     }
 
     fun loadImage(uri: Uri){
-        // TODO make image loading with glade or piccasso
         imageView?.let {
             Glide.with(context)
                 .load(uri)

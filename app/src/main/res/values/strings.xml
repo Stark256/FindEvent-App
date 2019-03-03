@@ -26,4 +26,11 @@
 
     <string name="add">Add</string>
     <string name="edit">Edit</string>
+
+    <string name="tab_events">Events</string>
+    <string name="tab_friends">Friends</string>
+    <string name="tab_chats">Chats</string>
+    <string name="tab_games">Games</string>
+    <string name="tab_settings">Settings</string>
+
 </resources>
