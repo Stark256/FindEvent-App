@@ -1,6 +1,7 @@
 package com.esketit.myapp.ui.sing_up
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
@@ -10,6 +11,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.MenuItem
+import com.esketit.myapp.App
 import com.esketit.myapp.R
 import com.esketit.myapp.managers.Injector
 import com.esketit.myapp.ui.BaseActivity
@@ -30,6 +32,8 @@ class SignUpActivity : BaseActivity() {
     private var uri: Uri? = null
 
     private lateinit var viewModel: SignUpViewModel
+
+    private val progressDialog = AlertDialog.Builder(applicationContext).setView(R.layout.dialog_progress).create()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,11 +70,13 @@ class SignUpActivity : BaseActivity() {
 
     private fun btnPressed(){
         if(fieldValidation()) {
+            showProgressDialog()
             viewModel.signUpPressed(
                 et_sign_up_email.text.toString(),
                 et_sign_up_pass.text.toString(),
                 et_sign_up_name.text.toString(), uri) { response ->
                 if (response.success) {
+                    hideProgressDialog()
                     setResult(Activity.RESULT_OK, Intent())
                     finish()
                 } else {
@@ -203,4 +209,5 @@ class SignUpActivity : BaseActivity() {
         setError(ti_sign_up_pass, FieldsValidatorUtil.isEmpty(et_sign_up_pass.text.toString(), this))
         return (ti_sign_up_pass.error != null)
     }
+
 }

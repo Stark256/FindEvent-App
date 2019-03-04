@@ -4,7 +4,6 @@ import android.app.Application
 import com.esketit.myapp.managers.Injector
 
 
-
 class App: Application(){
 
     companion object {
@@ -17,7 +16,5 @@ class App: Application(){
         instance = this
         Injector.initData()
     }
-
-
 
 }

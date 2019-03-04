@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import com.esketit.myapp.App
 import com.esketit.myapp.R
 import com.esketit.myapp.managers.Injector
 import com.esketit.myapp.ui.BaseActivity
@@ -32,8 +33,10 @@ class SignInActivity : BaseActivity() {
 
     private fun btnPressed(){
         if(fieldValidation()) {
+            showProgressDialog()
             viewModel.signInPressed(et_sign_in_email.text.toString(), et_sign_in_pass.text.toString(), { response ->
                 if (response.success) {
+                    hideProgressDialog()
                     setResult(Activity.RESULT_OK, Intent())
                     finish()
                 } else {
