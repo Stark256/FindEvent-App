@@ -21,7 +21,7 @@ class WelcomeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_welcome)
 
 
-        if(Injector.emailAuth.isUserLogged){
+        if(Injector.auth.isUserLogged){
             startMainActivityAndFinish()
         }else{ showButtons() }
 

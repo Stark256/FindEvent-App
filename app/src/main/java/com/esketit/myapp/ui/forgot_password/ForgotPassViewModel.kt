@@ -7,7 +7,7 @@ import com.esketit.myapp.models.firebase.FirebaseResponse
 class ForgotPassViewModel: ViewModel(){
 
     fun resetPassword(email: String, response: (FirebaseResponse) -> Unit){
-        Injector.emailAuth.resetPassword(email, {firebaseResponse -> response(firebaseResponse) })
+        Injector.auth.resetPassword(email, { firebaseResponse -> response(firebaseResponse) })
     }
 
 }

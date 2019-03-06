@@ -1,7 +1,6 @@
 package com.esketit.myapp.ui.main.settings
 
 import android.arch.lifecycle.ViewModelProviders
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +8,6 @@ import android.view.ViewGroup
 import com.esketit.myapp.R
 import com.esketit.myapp.managers.Injector
 import com.esketit.myapp.ui.base.BaseFragment
-import com.esketit.myapp.ui.welcome.WelcomeActivity
 import kotlinx.android.synthetic.main.fragment_settings.*
 import kotlinx.android.synthetic.main.layout_toolbar.view.*
 
@@ -30,7 +28,7 @@ class SettingsFragment: BaseFragment(){
 
 
         btn1.setOnClickListener {
-            Injector.emailAuth.signOut()
+            Injector.auth.signOut()
 //            startActivity(Intent(this, WelcomeActivity::class.java))
 //            finish()
         }

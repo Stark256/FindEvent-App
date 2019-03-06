@@ -3,10 +3,9 @@ package com.esketit.myapp.managers
 import com.esketit.myapp.services.EmailAuthService
 import com.esketit.myapp.services.FirebaseServices
 import com.esketit.myapp.util.PermissionManager
-import com.google.firebase.auth.FirebaseAuth
 
 object Injector{
-    lateinit var emailAuth: EmailAuthService
+    lateinit var auth: EmailAuthService
 
     //lateinit var themesManager: ThemesManager
 
@@ -15,7 +14,7 @@ object Injector{
     lateinit var permissionManager: PermissionManager
 
     fun initData(){
-        emailAuth = EmailAuthService()
+        auth = EmailAuthService()
        // themesManager = ThemesManager()
         services = FirebaseServices()
         permissionManager = PermissionManager()
