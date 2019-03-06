@@ -3,11 +3,11 @@
           package="com.esketit.myapp">
 
     <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.CAMERA"/>
 
     <application
             android:name=".App"
@@ -17,25 +17,31 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".ui.sing_in.SignInActivity"
-                android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.sing_up.SignUpActivity"
-                  android:windowSoftInputMode="adjustResize"/>
 
         <activity android:name=".ui.welcome.WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
+
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
 
         <activity android:name=".ui.main.MainActivity"/>
 
+        <activity android:name=".ui.forgot_password.ForgotPassActivity"
+                  android:windowSoftInputMode="adjustResize"/>
+
+        <activity
+                android:name=".ui.sing_in.SignInActivity"
+                android:windowSoftInputMode="adjustResize"/>
+        <activity
+                android:name=".ui.sing_up.SignUpActivity"
+                android:windowSoftInputMode="adjustResize"/>
+
         <activity
                 android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
                 android:screenOrientation="portrait"
-                android:theme="@style/Base.Theme.AppCompat" />
-
+                android:theme="@style/Base.Theme.AppCompat"/>
     </application>
 
 </manifest>

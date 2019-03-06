@@ -70,13 +70,11 @@ class SignUpActivity : BaseActivity() {
                 et_sign_up_email.text.toString(),
                 et_sign_up_pass.text.toString(),
                 et_sign_up_name.text.toString(), uri) { response ->
+                hideProgressDialog()
                 if (response.success) {
-                    hideProgressDialog()
                     setResult(Activity.RESULT_OK, Intent())
                     finish()
-                } else {
-                    showError(response.localizedMessage)
-                }
+                } else { showError(response.localizedMessage) }
             }
         }
     }
@@ -191,17 +189,17 @@ class SignUpActivity : BaseActivity() {
     }
 
     private fun checkUserName(): Boolean{
-        setError(ti_sign_up_name, FieldsValidatorUtil.isEmpty(et_sign_up_name.text.toString(), this))
+        setError(ti_sign_up_name, FieldsValidatorUtil.isNameValid(et_sign_up_name.text.toString(), this))
         return (ti_sign_up_name.error != null)
     }
 
     private fun checkEmail(): Boolean{
-        setError(ti_sign_up_email, FieldsValidatorUtil.isEmpty(et_sign_up_email.text.toString(), this))
+        setError(ti_sign_up_email, FieldsValidatorUtil.isEmailValid(et_sign_up_email.text.toString(), this))
         return (ti_sign_up_email.error != null)
     }
 
     private fun checkPass(): Boolean{
-        setError(ti_sign_up_pass, FieldsValidatorUtil.isEmpty(et_sign_up_pass.text.toString(), this))
+        setError(ti_sign_up_pass, FieldsValidatorUtil.isPassValid(et_sign_up_pass.text.toString(), this))
         return (ti_sign_up_pass.error != null)
     }
 

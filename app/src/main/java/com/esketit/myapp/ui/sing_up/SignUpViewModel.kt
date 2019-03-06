@@ -12,9 +12,7 @@ import java.io.ByteArrayOutputStream
 class SignUpViewModel: ViewModel() {
 
     fun signUpPressed(email: String, pass: String, name: String, uri: Uri?, response: (FirebaseResponse) -> Unit){
-        Injector.emailAuth.signUp(email, pass, name, uri) { response ->
-            response(response)
-        }
+        Injector.emailAuth.signUp(email, pass, name, uri) { firebaseResponse -> response(firebaseResponse) }
     }
 
     fun getBitmapUri(bitmap: Bitmap, contentResolver:ContentResolver): Uri {

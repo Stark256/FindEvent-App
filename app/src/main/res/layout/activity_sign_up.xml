@@ -58,7 +58,7 @@
                     android:layout_height="wrap_content"
                     style="@style/CommonTextInputLayout"
                     android:layout_marginBottom="8dp"
-                    android:layout_marginTop="32dp"
+                    android:layout_marginTop="72dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintBottom_toTopOf="@+id/ti_sign_up_email"

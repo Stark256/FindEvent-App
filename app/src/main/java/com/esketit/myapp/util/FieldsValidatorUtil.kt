@@ -9,11 +9,37 @@ import java.util.regex.Pattern
 object FieldsValidatorUtil{
 
 
-    fun isEmpty(value: String, context: Context):String?{
+    fun isEmpty(value: String, context: Context): String? {
         return if(value.isEmpty() || value.isBlank()){
             context.getString(R.string.empty_field_message)
         }else null
     }
+
+    fun isNameValid(value: String?, context: Context): String? {
+        return if(value != null){
+            return isEmpty(value, context)
+        }else{
+            context.getString(R.string.empty_field_message)
+        }
+    }
+
+    fun isEmailValid(value: String?, context: Context): String? {
+        return if(value != null){
+            return isEmpty(value, context)
+        }else{
+            context.getString(R.string.empty_field_message)
+        }
+    }
+
+    fun isPassValid(value: String?, context: Context): String? {
+        return if(value != null){
+            return isEmpty(value, context)
+        }else{
+            context.getString(R.string.empty_field_message)
+        }
+    }
+
+
 //
 //    fun isUserNameValid(title: String?, context: Context): String?{
 //        return if(title != null){

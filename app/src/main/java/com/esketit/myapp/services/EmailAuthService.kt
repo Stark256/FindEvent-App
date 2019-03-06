@@ -76,7 +76,10 @@ class EmailAuthService{
             }
     }
 
-
+    fun resetPassword(email: String, response: (FirebaseResponse) -> Unit){
+        auth.sendPasswordResetEmail(email)
+            .addOnCompleteListener { response(FirebaseResponse(it.isSuccessful, it.exception)) }
+    }
 
     fun signOut(){ auth.signOut() }
 

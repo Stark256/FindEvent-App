@@ -3,6 +3,7 @@
 
     <string name="sign_up">Sign Up</string>
     <string name="sign_in">Sign In</string>
+    <string name="reset">Reset</string>
 
     <string name="name">Name</string>
     <string name="email">Email</string>
@@ -26,6 +27,8 @@
 
     <string name="add">Add</string>
     <string name="edit">Edit</string>
+
+    <string name="forgot_pass">Forgot password?</string>
 
     <string name="title_events">Events</string>
     <string name="title_friends">Friends</string>

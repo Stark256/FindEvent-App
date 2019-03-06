@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import com.esketit.myapp.R
 import com.esketit.myapp.ui.base.BaseActivity
+import com.esketit.myapp.ui.forgot_password.ForgotPassActivity
 import com.esketit.myapp.util.FieldsValidatorUtil
 import kotlinx.android.synthetic.main.activity_sing_in.*
 import kotlinx.android.synthetic.main.layout_toolbar.view.*
@@ -28,21 +29,26 @@ class SignInActivity : BaseActivity() {
 
     private fun initView(){
         btn_sign_in.setOnClickListener { btnPressed() }
+        bt_forgot_pass.setOnClickListener { forgotPassPressed() }
     }
+
+    /*     Button Actions     */
 
     private fun btnPressed(){
         if(fieldValidation()) {
             showProgressDialog()
             viewModel.signInPressed(et_sign_in_email.text.toString(), et_sign_in_pass.text.toString()) { response ->
+                hideProgressDialog()
                 if (response.success) {
-                    hideProgressDialog()
                     setResult(Activity.RESULT_OK, Intent())
                     finish()
-                } else {
-                    showError(response.localizedMessage)
-                }
+                } else { showError(response.localizedMessage) }
             }
         }
+    }
+
+    private fun forgotPassPressed(){
+        startActivity(Intent(this, ForgotPassActivity::class.java))
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -63,12 +69,12 @@ class SignInActivity : BaseActivity() {
 
 
     private fun checkEmail(): Boolean{
-        setError(ti_sign_in_email, FieldsValidatorUtil.isEmpty(et_sign_in_email.text.toString(), this))
+        setError(ti_sign_in_email, FieldsValidatorUtil.isEmailValid(et_sign_in_email.text.toString(), this))
         return (ti_sign_in_email.error != null)
     }
 
     private fun checkPass(): Boolean{
-        setError(ti_sign_in_pass, FieldsValidatorUtil.isEmpty(et_sign_in_pass.text.toString(), this))
+        setError(ti_sign_in_pass, FieldsValidatorUtil.isPassValid(et_sign_in_pass.text.toString(), this))
         return (ti_sign_in_pass.error != null)
     }
 
