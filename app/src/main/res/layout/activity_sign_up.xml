@@ -10,24 +10,15 @@
         android:background="@color/dark"
         android:fitsSystemWindows="true">
 
-    <android.support.design.widget.AppBarLayout
-            android:id="@+id/appBarLayout"
+    <include
+            android:id="@+id/toolbar_view_sign_up"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/transparent"
-            app:elevation="0dp"
+            layout="@layout/layout_toolbar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-        <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar_sign_up"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:theme="@style/CommonToolbar" />
-
-    </android.support.design.widget.AppBarLayout>
+            app:layout_constraintTop_toTopOf="parent"/>
 
     <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -42,7 +33,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar_view_sign_up"
                 android:padding="32dp">
 
             <com.esketit.myapp.view.EditImageView.EditImageView

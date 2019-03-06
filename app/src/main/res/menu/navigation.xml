@@ -3,31 +3,31 @@
 
     <item
             android:id="@+id/mi_events"
-            android:title="@string/tab_events"
+            android:title="@string/title_events"
             android:icon="@drawable/ic_tab_events"
             app:showAsAction="withText"/>
 
     <item
             android:id="@+id/mi_friends"
-            android:title="@string/tab_friends"
+            android:title="@string/title_friends"
             android:icon="@drawable/ic_tab_friends"
             app:showAsAction="withText"/>
 
     <item
             android:id="@+id/mi_chats"
-            android:title="@string/tab_chats"
+            android:title="@string/title_chats"
             android:icon="@drawable/ic_tab_chats"
             app:showAsAction="withText"/>
 
     <item
             android:id="@+id/mi_games"
-            android:title="@string/tab_games"
+            android:title="@string/title_games"
             android:icon="@drawable/ic_tab_games"
             app:showAsAction="withText"/>
 
     <item
             android:id="@+id/mi_settings"
-            android:title="@string/tab_settings"
+            android:title="@string/title_settings"
             android:icon="@drawable/ic_tab_settings"
             app:showAsAction="withText"/>
 

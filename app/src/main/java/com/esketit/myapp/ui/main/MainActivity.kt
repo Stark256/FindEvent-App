@@ -7,9 +7,15 @@ import android.os.Bundle
 import android.support.design.internal.BottomNavigationItemView
 import android.support.design.internal.BottomNavigationMenuView
 import android.support.design.widget.BottomNavigationView
+import android.support.v4.app.Fragment
 import android.util.Log
 import com.esketit.myapp.R
 import com.esketit.myapp.managers.Injector
+import com.esketit.myapp.ui.main.chats.ChatsFragment
+import com.esketit.myapp.ui.main.events.EventsFragment
+import com.esketit.myapp.ui.main.friends.FriendsFragment
+import com.esketit.myapp.ui.main.games.GamesFragment
+import com.esketit.myapp.ui.main.settings.SettingsFragment
 import com.esketit.myapp.ui.welcome.WelcomeActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -19,25 +25,15 @@ class MainActivity : AppCompatActivity() {
 
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
-            R.id.mi_events -> {
-                //presenter.buyItemPressed()
-            }
+            R.id.mi_events -> { replaceFragment(EventsFragment()) }
 
-            R.id.mi_friends -> {
-                //presenter.sellItemPressed()
-            }
+            R.id.mi_friends -> { replaceFragment(FriendsFragment()) }
 
-            R.id.mi_chats -> {
-                //presenter.categoriesItemPressed()
-            }
+            R.id.mi_chats -> { replaceFragment(ChatsFragment()) }
 
-            R.id.mi_games -> {
-               // presenter.chatItemPressed()
-            }
+            R.id.mi_games -> { replaceFragment(GamesFragment()) }
 
-            R.id.mi_settings -> {
-                //presenter.settingsItemPressed()
-            }
+            R.id.mi_settings -> { replaceFragment(SettingsFragment()) }
         }
 
         return@OnNavigationItemSelectedListener true
@@ -48,22 +44,26 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         initView()
+
+        replaceFragment(EventsFragment())
     }
 
     private fun initView(){
 
-
         this.bottomNavView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
 
-        btn1.setOnClickListener {
-            Injector.emailAuth.signOut()
-            startActivity(Intent(this, WelcomeActivity::class.java))
-            finish()
-        }
     }
 
 
+    private fun replaceFragment(fragment: Fragment) {
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.frame_layout, fragment)
+        transaction.commit()
+    }
 
+//    fun popBack() {
+//        supportFragmentManager.popBackStackImmediate();
+//    }
 
     @SuppressLint("RestrictedApi")
     fun BottomNavigationView.disableShiftMode() {

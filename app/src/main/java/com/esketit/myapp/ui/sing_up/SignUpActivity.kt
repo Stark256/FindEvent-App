@@ -1,8 +1,6 @@
 package com.esketit.myapp.ui.sing_up
 
 import android.app.Activity
-import android.app.AlertDialog
-import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -11,17 +9,16 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.MenuItem
-import com.esketit.myapp.App
 import com.esketit.myapp.R
 import com.esketit.myapp.managers.Injector
-import com.esketit.myapp.ui.BaseActivity
+import com.esketit.myapp.ui.base.BaseActivity
 import com.esketit.myapp.util.FieldsValidatorUtil
 import com.esketit.myapp.util.PermissionManager
 import com.esketit.myapp.view.EditImageView.EditImageDialogBaseClickListener
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
 import kotlinx.android.synthetic.main.activity_sign_up.*
-import java.io.ByteArrayOutputStream
+import kotlinx.android.synthetic.main.layout_toolbar.view.*
 
 class SignUpActivity : BaseActivity() {
 
@@ -33,13 +30,11 @@ class SignUpActivity : BaseActivity() {
 
     private lateinit var viewModel: SignUpViewModel
 
-    private val progressDialog = AlertDialog.Builder(applicationContext).setView(R.layout.dialog_progress).create()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
 
-        setSupportActionBar(this.toolbar_sign_up, true, false)
+        setSupportActionBar(this.toolbar_view_sign_up.toolbar, true, false)
 
         viewModel = ViewModelProviders.of(this).get(SignUpViewModel::class.java)
 

@@ -5,12 +5,11 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
-import com.esketit.myapp.App
 import com.esketit.myapp.R
-import com.esketit.myapp.managers.Injector
-import com.esketit.myapp.ui.BaseActivity
+import com.esketit.myapp.ui.base.BaseActivity
 import com.esketit.myapp.util.FieldsValidatorUtil
 import kotlinx.android.synthetic.main.activity_sing_in.*
+import kotlinx.android.synthetic.main.layout_toolbar.view.*
 
 class SignInActivity : BaseActivity() {
 
@@ -20,7 +19,7 @@ class SignInActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sing_in)
 
-        setSupportActionBar(this.toolbar_sign_in, true, false)
+        setSupportActionBar(this.toolbar_view_sign_in.toolbar, true, false)
 
         viewModel = ViewModelProviders.of(this).get(SignInViewModel::class.java)
 
@@ -34,7 +33,7 @@ class SignInActivity : BaseActivity() {
     private fun btnPressed(){
         if(fieldValidation()) {
             showProgressDialog()
-            viewModel.signInPressed(et_sign_in_email.text.toString(), et_sign_in_pass.text.toString(), { response ->
+            viewModel.signInPressed(et_sign_in_email.text.toString(), et_sign_in_pass.text.toString()) { response ->
                 if (response.success) {
                     hideProgressDialog()
                     setResult(Activity.RESULT_OK, Intent())
@@ -42,7 +41,7 @@ class SignInActivity : BaseActivity() {
                 } else {
                     showError(response.localizedMessage)
                 }
-            })
+            }
         }
     }
 

@@ -1,4 +1,4 @@
-package com.esketit.myapp.ui
+package com.esketit.myapp.ui.base
 
 import android.os.Bundle
 import android.support.design.widget.TextInputLayout
