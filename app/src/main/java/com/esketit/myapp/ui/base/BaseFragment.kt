@@ -14,4 +14,7 @@ open class BaseFragment(): Fragment(){
         toolbar.title = title
     }
 
+
+    fun showProgressDialog(){ (activity as MainActivity).showProgressDialog() }
+    fun hideProgressDialog(){ (activity as MainActivity).hideProgressDialog() }
 }

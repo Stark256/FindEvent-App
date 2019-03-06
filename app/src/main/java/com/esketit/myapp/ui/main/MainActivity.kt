@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment
 import android.util.Log
 import com.esketit.myapp.R
 import com.esketit.myapp.managers.Injector
+import com.esketit.myapp.ui.base.BaseActivity
 import com.esketit.myapp.ui.main.chats.ChatsFragment
 import com.esketit.myapp.ui.main.events.EventsFragment
 import com.esketit.myapp.ui.main.friends.FriendsFragment
@@ -19,7 +20,7 @@ import com.esketit.myapp.ui.main.settings.SettingsFragment
 import com.esketit.myapp.ui.welcome.WelcomeActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
 
 

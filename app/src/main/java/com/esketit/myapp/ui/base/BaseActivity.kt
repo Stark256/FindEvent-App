@@ -8,15 +8,14 @@ import android.support.v7.widget.Toolbar
 import com.esketit.myapp.R
 
 abstract class BaseActivity: AppCompatActivity(){
-
-//    val errorDialog = AlertDialog.Builder(this)
-//        .create()
+    
     private lateinit var progressDialog: AlertDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         this.progressDialog = AlertDialog.Builder(this)
             .setView(R.layout.dialog_progress)
+            .setCancelable(false)
             .create()
     }
 
