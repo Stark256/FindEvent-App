@@ -49,6 +49,8 @@ class MainActivity : BaseActivity() {
         replaceFragment(EventsFragment())
     }
 
+
+
     private fun initView(){
 
         this.bottomNavView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)

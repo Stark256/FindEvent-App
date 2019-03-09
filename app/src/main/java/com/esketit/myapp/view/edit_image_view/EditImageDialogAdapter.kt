@@ -1,15 +1,12 @@
-package com.esketit.myapp.view.EditImageView
+package com.esketit.myapp.view.edit_image_view
 
 import android.content.Context
 import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import android.widget.BaseAdapter
 import com.esketit.myapp.R
-import com.esketit.myapp.managers.Injector
 import kotlinx.android.synthetic.main.item_edit_image_dialog_adapter.view.*
 
 class EditImageDialogAdapter(var array: Array<EditImageDialogItem>, val context: Context): BaseAdapter(){

@@ -4,7 +4,7 @@ import java.lang.Exception
 
 class FirebaseResponse{
     var success = false
-//    var data: Any? = null
+    var data: Any? = null
 //    var type: Int = 0
 
     var exception: Exception? = null
@@ -15,7 +15,13 @@ class FirebaseResponse{
         this.success = success
         exception?.let { setExceptionMessages(it) }
     }
-        constructor()
+
+    constructor(success: Boolean, data: Any?, exception: Exception?){
+        this.success = success
+        this.data = data
+        exception?.let { setExceptionMessages(it) }
+    }
+
 
     private fun setExceptionMessages(exception: Exception){
         this.exception = exception

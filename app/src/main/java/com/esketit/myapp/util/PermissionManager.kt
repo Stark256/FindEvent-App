@@ -7,19 +7,17 @@ import android.content.pm.PackageManager
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
-import com.esketit.myapp.App
+import com.esketit.myapp.application.App
 import com.esketit.myapp.R
 import com.esketit.myapp.view.BaseDialog
-
-import timber.log.Timber
 
 class PermissionManager {
 
     private var dialog: BaseDialog? = null
 
-//    fun isPermissionLocationGranted(context: Context = App.instance): Boolean{
-//        return ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
-//    }
+    fun isPermissionLocationGranted(context: Context = App.instance, requestPermission: (() -> Unit)? = null): Boolean{
+        return ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+    }
 
     fun isPermissionLocationGranted(activity: AppCompatActivity, requestPermission: (() -> Unit)? = null): Boolean{
         return permissionLocationGranted(activity, requestPermission).isSuccess

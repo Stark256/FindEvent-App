@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="edit_image_view_camera_pading_1">0dp</dimen>
+    <dimen name="edit_image_view_camera_pading_2">24dp</dimen>
+    <dimen name="edit_image_view_camera_pading_3">34dp</dimen>
+
+    <dimen name="edit_image_view_big_text_size">18sp</dimen>
+    <dimen name="edit_image_view_big_border_size">102dp</dimen>
+    <dimen name="edit_image_view_big_border_radius">51dp</dimen>
+    <dimen name="edit_image_view_big_size">96dp</dimen>
+    <dimen name="edit_image_view_big_radius">48dp</dimen>
+
+    <dimen name="edit_image_view_small_text_size">14sp</dimen>
+    <dimen name="edit_image_view_small_border_size">78dp</dimen>
+    <dimen name="edit_image_view_small_border_radius">39dp</dimen>
+    <dimen name="edit_image_view_small_size">72dp</dimen>
+    <dimen name="edit_image_view_small_radius">36dp</dimen>
+</resources>

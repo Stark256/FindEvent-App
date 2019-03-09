@@ -21,15 +21,22 @@ class UserRepository{
             }
     }
 
-    fun getUser(userID: String){
+    fun getUser(userID: String, firebaseResponse: (FirebaseResponse) -> Unit){
         db.collection(COLLECTION_USER).document(userID).get()
-            .addOnCompleteListener { task ->
-                if(task.isSuccessful){
-                    task.result?.data
-                }else{
-                    task.exception
-                }
+            .addOnSuccessListener { documentSnapshot ->
+                val user = documentSnapshot.toObject(User::class.java)
+            user
+                documentSnapshot.exists()
+                firebaseResponse(FirebaseResponse(true, documentSnapshot.toObject(User::class.java), null))
+            }.addOnFailureListener {
+                firebaseResponse(FirebaseResponse(false, it))
             }
+    }
+
+    fun setIsOnline(isOnline: Boolean, userID: String, firebaseResponse: (FirebaseResponse) -> Unit){
+        db.collection(COLLECTION_USER).document(userID).update(User.Key.isOnlineKey.value, isOnline).addOnCompleteListener {
+            firebaseResponse(FirebaseResponse(it.isSuccessful, it.exception))
+        }
     }
 
 }

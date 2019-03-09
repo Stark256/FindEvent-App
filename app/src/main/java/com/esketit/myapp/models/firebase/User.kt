@@ -6,7 +6,8 @@ class User(var id: String = "",
            var email: String = "",
            var avatarImgURL: String = "",
            var latitude: String = "",
-           var longtitude: String = ""){
+           var longitude: String = "",
+           var isOnline: Boolean = false){
 
     fun data(): Map<String, Any>{
         return hashMapOf(
@@ -15,16 +16,18 @@ class User(var id: String = "",
             Pair(Key.emailKey.value, email),
             Pair(Key.avatarImgUrlKey.value, avatarImgURL),
             Pair(Key.latitudeKey.value, latitude),
-            Pair(Key.longtitudeKey.value, longtitude)
+            Pair(Key.longtitudeKey.value, longitude),
+            Pair(Key.isOnlineKey.value, isOnline)
             )
     }
 
-    private enum class Key(val value: String){
+    enum class Key(val value: String){
         idKey("id"),
         nameKey("name"),
         emailKey("email"),
         avatarImgUrlKey("avatarImgURL"),
         latitudeKey("latitude"),
-        longtitudeKey("longtitude")
+        longtitudeKey("longitude"),
+        isOnlineKey("isOnline")
     }
 }

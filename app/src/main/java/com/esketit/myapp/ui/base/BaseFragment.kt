@@ -7,7 +7,7 @@ import com.esketit.myapp.ui.main.MainActivity
 
 open class BaseFragment(): Fragment(){
 
-    val contextMain: Context
+    val contextMain: MainActivity
         get(){ return activity as MainActivity}
 
     fun setToolbarTitle(toolbar: Toolbar, title: String){

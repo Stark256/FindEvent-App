@@ -13,7 +13,7 @@
             android:id="@+id/toolbar_view_sign_in"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            layout="@layout/layout_toolbar"
+            layout="@layout/layout_empty_toolbar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"

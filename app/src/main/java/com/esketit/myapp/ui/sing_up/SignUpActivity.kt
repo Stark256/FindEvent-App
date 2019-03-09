@@ -11,24 +11,30 @@ import android.provider.MediaStore
 import android.view.MenuItem
 import com.esketit.myapp.R
 import com.esketit.myapp.managers.Injector
+import com.esketit.myapp.managers.LocationHelper
 import com.esketit.myapp.ui.base.BaseActivity
 import com.esketit.myapp.util.FieldsValidatorUtil
 import com.esketit.myapp.util.PermissionManager
-import com.esketit.myapp.view.EditImageView.EditImageDialogBaseClickListener
+import com.esketit.myapp.view.edit_image_view.EditImageDialogBaseClickListener
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import kotlinx.android.synthetic.main.layout_toolbar.view.*
+import android.content.Context
+import android.graphics.drawable.Drawable
+import android.location.LocationManager
+import android.support.v4.content.ContextCompat
 
 class SignUpActivity : BaseActivity() {
 
     private val RESULT_CAMERA = 15
     private val RESULT_GALARY = 25
-    private val RESULT_CROP = 35
 
     private var uri: Uri? = null
 
     private lateinit var viewModel: SignUpViewModel
+
+    private val locationManager = LocationHelper(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,13 +45,15 @@ class SignUpActivity : BaseActivity() {
         viewModel = ViewModelProviders.of(this).get(SignUpViewModel::class.java)
 
         initView()
+
+        checkLocationEnabled()
     }
 
 
 
     private fun initView(){
         btn_sing_up.setOnClickListener { btnPressed() }
-
+        eiv_sign_up_avatar.setBigView()
         eiv_sign_up_avatar.setAddImageView()
         eiv_sign_up_avatar.setDialogBaseCliclListener(object : EditImageDialogBaseClickListener{
             override fun onGalaryPressed() {
@@ -121,6 +129,10 @@ class SignUpActivity : BaseActivity() {
                 }
             }
 
+            199 -> {
+                checkLocationEnabled()
+            }
+
         }
     }
     private fun setImage(uri: Uri){
@@ -134,6 +146,25 @@ class SignUpActivity : BaseActivity() {
             .setAspectRatio(1, 1)
             .start(this)
     }
+
+    private fun checkLocationEnabled(){
+        if(Injector.permissionManager.isPermissionLocationGranted(this)) {
+            if (!isLocationEnabled()) {
+                locationManager.init(this)
+            } else {
+               viewModel.setLocation(Injector.locationManager.getLastLocation(this))
+            }
+        }
+    }
+
+    fun isLocationEnabled(): Boolean{
+        val manager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        return manager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+    }
+
+
+
+
 
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
@@ -153,6 +184,9 @@ class SignUpActivity : BaseActivity() {
                 } else {
                     //MessageUtil.showToast(getString(R.string.perrmission_for_galary))
                 }
+            }
+            PermissionManager.PERMISSION_ACCESS_FINE_LOCATION -> {
+                checkLocationEnabled()
             }
         }
     }

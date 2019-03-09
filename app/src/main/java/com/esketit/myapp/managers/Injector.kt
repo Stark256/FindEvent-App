@@ -10,6 +10,7 @@ object Injector{
     //lateinit var themesManager: ThemesManager
 
     lateinit var services: FirebaseServices
+    lateinit var locationManager: LocationManager
 
     lateinit var permissionManager: PermissionManager
 
@@ -18,5 +19,6 @@ object Injector{
        // themesManager = ThemesManager()
         services = FirebaseServices()
         permissionManager = PermissionManager()
+        locationManager = LocationManager()
     }
 }

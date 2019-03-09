@@ -13,7 +13,7 @@ import android.view.Window
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.TextView
-import com.esketit.myapp.App
+import com.esketit.myapp.application.App
 import com.esketit.myapp.R
 
 

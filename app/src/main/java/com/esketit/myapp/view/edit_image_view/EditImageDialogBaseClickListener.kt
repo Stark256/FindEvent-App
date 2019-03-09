@@ -1,4 +1,4 @@
-package com.esketit.myapp.view.EditImageView
+package com.esketit.myapp.view.edit_image_view
 
 interface EditImageDialogBaseClickListener{
     fun onGalaryPressed()

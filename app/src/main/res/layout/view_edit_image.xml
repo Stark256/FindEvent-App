@@ -2,16 +2,17 @@
 <android.support.v7.widget.CardView
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/cv_avatar"
-        android:layout_width="102dp"
-        android:layout_height="102dp"
-        app:cardCornerRadius="51dp"
+        android:id="@+id/cv_avatar_border"
+        android:layout_width="@dimen/edit_image_view_small_border_size"
+        android:layout_height="@dimen/edit_image_view_small_border_size"
+        app:cardCornerRadius="@dimen/edit_image_view_small_border_radius"
         android:backgroundTint="@color/gray">
 
     <android.support.v7.widget.CardView
-            android:layout_width="96dp"
-            android:layout_height="96dp"
-            app:cardCornerRadius="48dp"
+            android:id="@+id/cv_avatar"
+            android:layout_width="@dimen/edit_image_view_small_size"
+            android:layout_height="@dimen/edit_image_view_small_size"
+            app:cardCornerRadius="@dimen/edit_image_view_small_radius"
             android:backgroundTint="@color/blue"
             android:layout_gravity="center">
 
@@ -21,8 +22,8 @@
 
             <ImageView
                     android:id="@+id/iv_avatar"
-                    android:layout_width="96dp"
-                    android:layout_height="96dp"
+                    android:layout_width="@dimen/edit_image_view_small_size"
+                    android:layout_height="@dimen/edit_image_view_small_size"
                     android:scaleType="centerCrop"
                     android:layout_centerInParent="true"/>
 
@@ -32,7 +33,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
-                    android:textSize="18sp"
+                    android:textSize="@dimen/edit_image_view_small_text_size"
                     android:textColor="@color/white"
                     android:maxLines="1"
                     android:ellipsize="end"

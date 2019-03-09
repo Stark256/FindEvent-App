@@ -1,4 +1,4 @@
-package com.esketit.myapp
+package com.esketit.myapp.application
 
 import android.app.Application
 import com.esketit.myapp.managers.Injector
