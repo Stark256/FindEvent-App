@@ -7,11 +7,12 @@ import android.os.Bundle
 import com.esketit.myapp.ui.main.MainActivity
 import com.esketit.myapp.R
 import com.esketit.myapp.managers.Injector
+import com.esketit.myapp.ui.base.BaseActivity
 import com.esketit.myapp.ui.sing_in.SignInActivity
 import com.esketit.myapp.ui.sing_up.SignUpActivity
 import kotlinx.android.synthetic.main.activity_welcome.*
 
-class WelcomeActivity : AppCompatActivity() {
+class WelcomeActivity : BaseActivity() {
 
     private val RESULT_SIGN_UP = 25
     private val RESULT_SIGN_IN = 30
@@ -22,7 +23,13 @@ class WelcomeActivity : AppCompatActivity() {
 
 
         if(Injector.auth.isUserLogged){
-            startMainActivityAndFinish()
+            showProgressDialog()
+            Injector.userManager.updateActiveUser{ updateResponse ->
+                hideProgressDialog()
+                    if(updateResponse.success){
+                        startMainActivityAndFinish() }
+                    else{ updateResponse.exception?.let { showError(it.localizedMessage) } }
+            }
         }else{ showButtons() }
 
 

@@ -21,15 +21,12 @@ class UserRepository{
             }
     }
 
-    fun getUser(userID: String, firebaseResponse: (FirebaseResponse) -> Unit){
+    fun getUser(userID: String, firebaseResponse: (FirebaseResponse, User?) -> Unit){
         db.collection(COLLECTION_USER).document(userID).get()
             .addOnSuccessListener { documentSnapshot ->
-                val user = documentSnapshot.toObject(User::class.java)
-            user
-                documentSnapshot.exists()
-                firebaseResponse(FirebaseResponse(true, documentSnapshot.toObject(User::class.java), null))
+                firebaseResponse(FirebaseResponse(true, null), documentSnapshot.toObject(User::class.java))
             }.addOnFailureListener {
-                firebaseResponse(FirebaseResponse(false, it))
+                firebaseResponse(FirebaseResponse(false, it), null)
             }
     }
 

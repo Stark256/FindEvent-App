@@ -23,9 +23,7 @@ class BackgroundManager private constructor(application: Application) : Applicat
         fun onBecameBackground()
     }
 
-    init {
-        application.registerActivityLifecycleCallbacks(this)
-    }
+    init { application.registerActivityLifecycleCallbacks(this) }
 
     fun registerListener(listener: Listener) {
         listeners.add(listener)

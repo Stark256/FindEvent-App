@@ -17,10 +17,9 @@ class SettingsViewModel: ViewModel(){
 
     fun loadCurrentUser(){
         Injector.auth.currentUser?.let {
-            Injector.services.userRepository.getUser(it.uid){firebaseResponse ->
-                if(firebaseResponse.success){
-                    generateItems(firebaseResponse.data as? User)
-                }else{ exception.value = firebaseResponse }
+            Injector.services.userRepository.getUser(it.uid){firebaseResponse, user ->
+                if(firebaseResponse.success){ generateItems(user) }
+                else{ exception.value = firebaseResponse }
             }
         }
     }

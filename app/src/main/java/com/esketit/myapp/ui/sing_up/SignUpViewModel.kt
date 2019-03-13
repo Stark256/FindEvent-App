@@ -17,7 +17,13 @@ class SignUpViewModel: ViewModel() {
     fun signUpPressed(email: String, pass: String, name: String, uri: Uri?, response: (FirebaseResponse) -> Unit){
         Injector.auth.signUp(email, pass, name, uri,
             currentLocation?.latitude.toString()?: "",
-            currentLocation?.longitude.toString()?: "") { firebaseResponse -> response(firebaseResponse) }
+            currentLocation?.longitude.toString()?: "") { firebaseResponse ->
+
+            if(firebaseResponse.success){
+                Injector.userManager.updateActiveUser{ updateResponse -> response(updateResponse) }
+            }
+            else { response(firebaseResponse) }
+        }
     }
 
     fun getBitmapUri(bitmap: Bitmap, contentResolver:ContentResolver): Uri {

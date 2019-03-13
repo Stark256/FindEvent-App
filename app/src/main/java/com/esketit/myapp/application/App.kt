@@ -5,7 +5,7 @@ import android.content.ComponentCallbacks2
 import com.esketit.myapp.managers.Injector
 
 
-class App: Application() {//, ComponentCallbacks2
+class App: Application() {
 
     companion object {
         @JvmStatic
@@ -15,24 +15,21 @@ class App: Application() {//, ComponentCallbacks2
     override fun onCreate() {
         super.onCreate()
         instance = this
+        Injector.initData()
 
 
         BackgroundManager.getBackgroundManager(this).registerListener(BackgroundManagerListener())
-//        registerComponentCallbacks(this)
-
-        Injector.initData()
     }
 
 
     private class BackgroundManagerListener: BackgroundManager.Listener{
         override fun onBecameForeground() {
-            // TODO TEST
+            Injector.userManager.setUserOnline {  }
 
         }
 
         override fun onBecameBackground() {
-            // TODO TEST
-
+            Injector.userManager.setUserOffline {  }
         }
     }
 
