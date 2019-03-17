@@ -6,6 +6,7 @@
         android:layout_width="@dimen/edit_image_view_small_border_size"
         android:layout_height="@dimen/edit_image_view_small_border_size"
         app:cardCornerRadius="@dimen/edit_image_view_small_border_radius"
+        app:cardElevation="0dp"
         android:backgroundTint="@color/gray">
 
     <android.support.v7.widget.CardView
@@ -13,6 +14,7 @@
             android:layout_width="@dimen/edit_image_view_small_size"
             android:layout_height="@dimen/edit_image_view_small_size"
             app:cardCornerRadius="@dimen/edit_image_view_small_radius"
+            app:cardElevation="0dp"
             android:backgroundTint="@color/blue"
             android:layout_gravity="center">
 

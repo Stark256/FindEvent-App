@@ -4,7 +4,8 @@ abstract class SettingsBaseItem{
 
     enum class SettingItemType(var value: Int){
         TYPE_EMPTY(0),
-        TYPE_PROFILE(1)
+        TYPE_PROFILE(1),
+        TYPE_SETTING(2)
     }
 
     abstract fun getType(): SettingItemType

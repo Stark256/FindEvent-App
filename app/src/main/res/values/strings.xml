@@ -38,4 +38,10 @@
 
     <string name="loading">Loading...</string>
 
+    <string name="notification">Notifications</string>
+    <string name="appearance">Appearance</string>
+    <string name="bug_report">Bug</string>
+    <string name="language">Language</string>
+    <string name="about_us">About us</string>
+
 </resources>

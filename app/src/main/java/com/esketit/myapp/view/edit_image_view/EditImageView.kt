@@ -46,6 +46,7 @@ class EditImageView @JvmOverloads constructor(
     private val bigTextSize: Float = context.resources.getDimension(R.dimen.edit_image_view_big_text_size)
     private val smallTextSize: Float = context.resources.getDimension(R.dimen.edit_image_view_small_text_size)
 
+    //private var clickable: Boolean = true
 
     init {
         LayoutInflater.from(context)
@@ -55,7 +56,9 @@ class EditImageView @JvmOverloads constructor(
     }
 
     private fun initView(){
-        root?.setOnClickListener { showDialog() }
+        if(isClickable) {
+            root?.setOnClickListener { showDialog() }
+        }
 
     }
 
