@@ -50,6 +50,7 @@
         <item name="colorControlNormal">@color/white</item>
         <item name="titleTextColor">@color/white</item>
         <item name="android:background">@color/gray</item>
+        <item name="android:actionMenuTextColor">@color/white</item>
     </style>
 
     <style name="EmptyToolbar" parent="@style/ThemeOverlay.AppCompat.ActionBar">

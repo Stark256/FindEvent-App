@@ -2,20 +2,20 @@ package com.esketit.myapp.ui.main.settings
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import com.esketit.myapp.R
-import com.esketit.myapp.managers.Injector
-import com.esketit.myapp.models.firebase.FirebaseResponse
 import com.esketit.myapp.models.firebase.User
-import com.esketit.myapp.models.local.settings_models.SettingsBaseItem
-import com.esketit.myapp.models.local.settings_models.SettingsEmptyItem
-import com.esketit.myapp.models.local.settings_models.SettingsProfileItem
-import com.esketit.myapp.models.local.settings_models.SettingsSettingItem
+import com.esketit.myapp.models.local.settings_models.*
+import com.esketit.myapp.ui.about_us.AboutUsActivity
+import com.esketit.myapp.ui.appearance.AppearanceActivity
 import com.esketit.myapp.ui.base.BaseFragment
+import com.esketit.myapp.ui.bug_report.BugReportActivity
+import com.esketit.myapp.ui.edit_profile.EditProfileActivity
+import com.esketit.myapp.ui.language.LanguageActivity
+import com.esketit.myapp.ui.notification.NotificationActivity
 import kotlinx.android.synthetic.main.fragment_settings.*
 import kotlinx.android.synthetic.main.layout_toolbar.view.*
 
@@ -31,7 +31,11 @@ class SettingsFragment: BaseFragment(), SettingsAdapter.SettingsClickListener{
         super.onViewCreated(view, savedInstanceState)
 
         setToolbarTitle(toolbar_view_settings.toolbar, contextMain.getString(R.string.title_settings))
-
+        toolbar_view_settings.toolbar.inflateMenu(R.menu.menu_settings)
+        toolbar_view_settings.toolbar.setOnMenuItemClickListener {
+            if(it.itemId == R.id.mi_edit){ startActivity(Intent(contextMain, EditProfileActivity::class.java)) }
+            false
+        }
         initViewModel()
 
 
@@ -54,19 +58,6 @@ class SettingsFragment: BaseFragment(), SettingsAdapter.SettingsClickListener{
 
             updateApterItems()
         }
-//        viewModel.apply {
-//            exception.observe(this@SettingsFragment, Observer<FirebaseResponse>{
-//                it?.localizedMessage?.let { contextMain.showError(it) }
-//            })
-//
-//            settingsItems.observe(this@SettingsFragment, Observer<ArrayList<SettingsBaseItem>>{
-//                it?.let {
-//                    adapter.replaceAll(it)
-//                }
-//            })
-//
-////            loadCurrentUser()
-//        }
     }
 
     private fun initView(){
@@ -75,19 +66,26 @@ class SettingsFragment: BaseFragment(), SettingsAdapter.SettingsClickListener{
     }
 
     override fun onItemPressed(settingsItemType: Int) {
-
+        when(settingsItemType){
+            SettingsBaseItem.SettingItemType.TYPE_PROFILE.value -> {  startActivity(Intent(contextMain, EditProfileActivity::class.java)) }
+            SettingsBaseItem.SettingItemType.TYPE_NOTIFICATIONS.value -> {  startActivity(Intent(contextMain, NotificationActivity::class.java)) }
+            SettingsBaseItem.SettingItemType.TYPE_APPEARANCE.value -> {  startActivity(Intent(contextMain, AppearanceActivity::class.java)) }
+            SettingsBaseItem.SettingItemType.TYPE_LANGUAGE.value -> {  startActivity(Intent(contextMain, LanguageActivity::class.java)) }
+            SettingsBaseItem.SettingItemType.TYPE_BUG_REPORT.value -> {  startActivity(Intent(contextMain, BugReportActivity::class.java)) }
+            SettingsBaseItem.SettingItemType.TYPE_ABOUT_US.value -> {  startActivity(Intent(contextMain, AboutUsActivity::class.java)) }
+        }
     }
 
     private fun updateAdapterItems(user: User?){
         adapter.replaceAll(arrayListOf(
                 SettingsProfileItem(user),
                 SettingsEmptyItem(),
-                SettingsSettingItem(R.drawable.notification, R.string.notification),
-                SettingsSettingItem(R.drawable.appearance, R.string.appearance),
-                SettingsSettingItem(R.drawable.language, R.string.language),
+                SettingsNotificationItem(R.drawable.notification, R.string.notification),
+                SettingsAppearanceItem(R.drawable.appearance, R.string.appearance),
+                SettingsLanguageItem(R.drawable.language, R.string.language),
                 SettingsEmptyItem(),
-                SettingsSettingItem(R.drawable.bug, R.string.bug_report),
-                SettingsSettingItem(R.drawable.aboutus, R.string.about_us)
+                SettingsBugReportItem(R.drawable.bug, R.string.bug_report),
+                SettingsAboutUsItem(R.drawable.aboutus, R.string.about_us)
             ))
     }
 }

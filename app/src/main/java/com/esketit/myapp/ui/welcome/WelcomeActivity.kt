@@ -3,7 +3,7 @@ package com.esketit.myapp.ui.welcome
 import  android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import com.esketit.myapp.ui.main.main.MainActivity
+import com.esketit.myapp.ui.main.MainActivity
 import com.esketit.myapp.R
 import com.esketit.myapp.managers.Injector
 import com.esketit.myapp.ui.base.BaseActivity

@@ -1,4 +1,4 @@
-package com.esketit.myapp.ui.main.main
+package com.esketit.myapp.ui.main
 
 import android.annotation.SuppressLint
 import android.arch.lifecycle.ViewModelProviders

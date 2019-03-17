@@ -2,7 +2,7 @@ package com.esketit.myapp.ui.base
 
 import android.support.v4.app.Fragment
 import android.support.v7.widget.Toolbar
-import com.esketit.myapp.ui.main.main.MainActivity
+import com.esketit.myapp.ui.main.MainActivity
 
 open class BaseFragment(): Fragment(){
 

@@ -9,9 +9,7 @@ import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.esketit.myapp.R
 import com.esketit.myapp.models.firebase.User
-import com.esketit.myapp.models.local.settings_models.SettingsBaseItem
-import com.esketit.myapp.models.local.settings_models.SettingsProfileItem
-import com.esketit.myapp.models.local.settings_models.SettingsSettingItem
+import com.esketit.myapp.models.local.settings_models.*
 import com.esketit.myapp.ui.base.BaseRecyclerAdapter
 import kotlinx.android.synthetic.main.item_settings_profile.view.*
 import kotlinx.android.synthetic.main.item_settings_setting.view.*
@@ -26,9 +24,8 @@ class SettingsAdapter(var listener: SettingsClickListener): BaseRecyclerAdapter<
         this.context = parent.context
         return when(type){
             SettingsBaseItem.SettingItemType.TYPE_PROFILE.value -> { ProfileViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_settings_profile, parent, false)) }
-            SettingsBaseItem.SettingItemType.TYPE_SETTING.value -> { SettingViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_settings_setting, parent,false)) }
             SettingsBaseItem.SettingItemType.TYPE_EMPTY.value -> { EmptyViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_settings_empty, parent,false)) }
-            else -> EmptyViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_settings_empty, parent,false))
+            else -> SettingViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_settings_setting, parent,false))
 
         }
     }
@@ -41,10 +38,27 @@ class SettingsAdapter(var listener: SettingsClickListener): BaseRecyclerAdapter<
                 val profile = item as SettingsProfileItem
                 profile.user?.let { (holder as ProfileViewHolder).bindView(it) }
             }
-            SettingsBaseItem.SettingItemType.TYPE_SETTING -> {
-                val setting = item as SettingsSettingItem
-                (holder as SettingViewHolder).bindView(setting, context)
+            SettingsBaseItem.SettingItemType.TYPE_NOTIFICATIONS -> {
+                val setting = item as SettingsNotificationItem
+                (holder as SettingViewHolder).bindView(setting.iconRes, setting.titleRes, context)
             }
+            SettingsBaseItem.SettingItemType.TYPE_APPEARANCE -> {
+                val setting = item as SettingsAppearanceItem
+                (holder as SettingViewHolder).bindView(setting.iconRes, setting.titleRes, context)
+            }
+            SettingsBaseItem.SettingItemType.TYPE_LANGUAGE -> {
+                val setting = item as SettingsLanguageItem
+                (holder as SettingViewHolder).bindView(setting.iconRes, setting.titleRes, context)
+            }
+            SettingsBaseItem.SettingItemType.TYPE_BUG_REPORT -> {
+                val setting = item as SettingsBugReportItem
+                (holder as SettingViewHolder).bindView(setting.iconRes, setting.titleRes, context)
+            }
+            SettingsBaseItem.SettingItemType.TYPE_ABOUT_US -> {
+                val setting = item as SettingsAboutUsItem
+                (holder as SettingViewHolder).bindView(setting.iconRes, setting.titleRes, context)
+            }
+
         }
 
         holder.itemView.setOnClickListener { listener.onItemPressed(item.getType().value) }
@@ -68,11 +82,11 @@ class SettingsAdapter(var listener: SettingsClickListener): BaseRecyclerAdapter<
         val titleV = v.tv_setting_title
         val icon = v.iv_setting_icon
 
-        fun bindView(setting: SettingsSettingItem, context: Context){
-            titleV.text = context.getString(setting.titleRes)
+        fun bindView(iconRes: Int, titleRes: Int, context: Context){
+            titleV.text = context.getString(titleRes)
 
             Glide.with(context)
-                .load(ContextCompat.getDrawable(context, setting.iconRes))
+                .load(ContextCompat.getDrawable(context, iconRes))
                 .centerCrop()
                 .into(icon);
         }

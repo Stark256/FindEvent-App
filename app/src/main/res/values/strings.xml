@@ -38,10 +38,12 @@
 
     <string name="loading">Loading...</string>
 
+    <string name="edit_profile">Edit Profile</string>
+
     <string name="notification">Notifications</string>
     <string name="appearance">Appearance</string>
     <string name="bug_report">Bug</string>
     <string name="language">Language</string>
-    <string name="about_us">About us</string>
+    <string name="about_us">About Us</string>
 
 </resources>
