@@ -2,6 +2,7 @@ package com.esketit.myapp.repositories
 
 import com.esketit.myapp.models.firebase.FirebaseResponse
 import com.esketit.myapp.models.firebase.User
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 
 class UserRepository{
@@ -30,8 +31,8 @@ class UserRepository{
             }
     }
 
-    fun setIsOnline(isOnline: Boolean, userID: String, firebaseResponse: (FirebaseResponse) -> Unit){
-        db.collection(COLLECTION_USER).document(userID).update(User.Key.isOnlineKey.value, isOnline).addOnCompleteListener {
+    fun updateActiveTime(userID: String, firebaseResponse: (FirebaseResponse) -> Unit){
+        db.collection(COLLECTION_USER).document(userID).update(User.Key.activeTimeKey.value, FieldValue.serverTimestamp()).addOnCompleteListener {
             firebaseResponse(FirebaseResponse(it.isSuccessful, it.exception))
         }
     }

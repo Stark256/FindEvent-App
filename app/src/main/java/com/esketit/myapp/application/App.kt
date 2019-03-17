@@ -16,21 +16,5 @@ class App: Application() {
         super.onCreate()
         instance = this
         Injector.initData()
-
-
-        BackgroundManager.getBackgroundManager(this).registerListener(BackgroundManagerListener())
     }
-
-
-    private class BackgroundManagerListener: BackgroundManager.Listener{
-        override fun onBecameForeground() {
-            Injector.userManager.setUserOnline {  }
-
-        }
-
-        override fun onBecameBackground() {
-            Injector.userManager.setUserOffline {  }
-        }
-    }
-
 }

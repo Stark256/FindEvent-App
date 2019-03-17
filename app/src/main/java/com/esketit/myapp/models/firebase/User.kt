@@ -1,5 +1,8 @@
 package com.esketit.myapp.models.firebase
 
+import com.google.firebase.Timestamp
+import com.google.firebase.firestore.ServerTimestamp
+
 
 class User(var id: String = "",
            var name: String = "",
@@ -7,9 +10,9 @@ class User(var id: String = "",
            var avatarImgURL: String = "",
            var latitude: String = "",
            var longitude: String = "",
-           var isOnline: Boolean = false){
+           @ServerTimestamp var activeTime: Timestamp? = null){
 
-    fun data(): Map<String, Any>{
+    fun data(): Map<String, Any?>{
         return hashMapOf(
             Pair(Key.idKey.value, id),
             Pair(Key.nameKey.value, name),
@@ -17,7 +20,7 @@ class User(var id: String = "",
             Pair(Key.avatarImgUrlKey.value, avatarImgURL),
             Pair(Key.latitudeKey.value, latitude),
             Pair(Key.longtitudeKey.value, longitude),
-            Pair(Key.isOnlineKey.value, isOnline)
+            Pair(Key.activeTimeKey.value, activeTime)
             )
     }
 
@@ -28,6 +31,6 @@ class User(var id: String = "",
         avatarImgUrlKey("avatarImgURL"),
         latitudeKey("latitude"),
         longtitudeKey("longitude"),
-        isOnlineKey("isOnline")
+        activeTimeKey("activeTime")
     }
 }

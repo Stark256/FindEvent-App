@@ -19,6 +19,11 @@ abstract class BaseActivity: AppCompatActivity(){
             .create()
     }
 
+//    override fun onResume() {
+//        super.onResume()
+//        updateUI()
+//    }
+
     fun showError(message: String){
         AlertDialog.Builder(this)
             .setTitle(getString(R.string.error))
@@ -45,4 +50,7 @@ abstract class BaseActivity: AppCompatActivity(){
 
     fun showProgressDialog(){ progressDialog.show() }
     fun hideProgressDialog(){ progressDialog.dismiss() }
+
+//    fun updateUI(){}
+//    fun updateLocalization(){}
 }

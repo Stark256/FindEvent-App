@@ -2,6 +2,7 @@ package com.esketit.myapp.managers
 
 import com.esketit.myapp.models.firebase.FirebaseResponse
 import com.esketit.myapp.models.firebase.User
+import java.util.*
 
 class UserManager{
 
@@ -13,7 +14,7 @@ class UserManager{
                 Injector.services.userRepository.getUser(it.uid){ response, user ->
                     if(response.success){
                         this.activeUser = user
-                        setUserOnline {}
+                        updateActiveTime{}
                         firebaseResponse(response)
                     }
                     else{ firebaseResponse(response) }
@@ -22,16 +23,11 @@ class UserManager{
         } else { firebaseResponse(FirebaseResponse(false, null)) }
     }
 
-    fun setUserOnline(firebaseResponse: (FirebaseResponse) -> Unit){
+    fun updateActiveTime(firebaseResponse: (FirebaseResponse) -> Unit){
         activeUser?.let {
-            Injector.services.userRepository.setIsOnline(true, it.id){response ->  firebaseResponse(response) }
+            Injector.services.userRepository.updateActiveTime(it.id) { response ->  firebaseResponse(response) }
         }
-    }
 
-    fun setUserOffline(firebaseResponse: (FirebaseResponse) -> Unit){
-        activeUser?.let {
-                Injector.services.userRepository.setIsOnline(false, it.id){response ->  firebaseResponse(response) }
-        }
     }
 
 }

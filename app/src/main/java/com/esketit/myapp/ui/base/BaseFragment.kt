@@ -1,14 +1,14 @@
 package com.esketit.myapp.ui.base
 
-import android.content.Context
 import android.support.v4.app.Fragment
 import android.support.v7.widget.Toolbar
-import com.esketit.myapp.ui.main.MainActivity
+import com.esketit.myapp.ui.main.main.MainActivity
 
 open class BaseFragment(): Fragment(){
 
     val contextMain: MainActivity
-        get(){ return activity as MainActivity}
+        get(){ return activity as MainActivity
+        }
 
     fun setToolbarTitle(toolbar: Toolbar, title: String){
         toolbar.title = title
