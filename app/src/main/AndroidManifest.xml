@@ -17,18 +17,7 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".ui.notification.NotificationActivity">
-        </activity>
-        <activity android:name=".ui.language.LanguageActivity">
-        </activity>
-        <activity android:name=".ui.edit_profile.EditProfileActivity">
-        </activity>
-        <activity android:name=".ui.bug_report.BugReportActivity">
-        </activity>
-        <activity android:name=".ui.appearance.AppearanceActivity">
-        </activity>
-        <activity android:name=".ui.about_us.AboutUsActivity">
-        </activity>
+
         <activity android:name=".ui.welcome.WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -36,7 +25,6 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ui.main.MainActivity"/>
         <activity
                 android:name=".ui.forgot_password.ForgotPassActivity"
                 android:windowSoftInputMode="adjustResize"/>
@@ -50,6 +38,16 @@
                 android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
                 android:screenOrientation="portrait"
                 android:theme="@style/Base.Theme.AppCompat"/>
+
+        <activity android:name=".ui.main.MainActivity"/>
+
+        <activity android:name=".ui.notification.NotificationActivity"/>
+        <activity android:name=".ui.language.LanguageActivity"/>
+        <activity android:name=".ui.edit_profile.EditProfileActivity"/>
+        <activity android:name=".ui.bug_report.BugReportActivity"/>
+        <activity android:name=".ui.appearance.AppearanceActivity"/>
+        <activity android:name=".ui.about_us.AboutUsActivity"/>
+
     </application>
 
 </manifest>
