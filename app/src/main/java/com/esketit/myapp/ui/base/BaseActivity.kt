@@ -28,7 +28,7 @@ abstract class BaseActivity: AppCompatActivity(){
         AlertDialog.Builder(this)
             .setTitle(getString(R.string.error))
             .setMessage(message)
-            .setPositiveButton(getString(R.string.ok), { dialog, which ->  dialog.dismiss() })
+            .setPositiveButton(getString(R.string.ok)) { dialog, _ ->  dialog.dismiss() }
             .show()
     }
 
@@ -52,5 +52,5 @@ abstract class BaseActivity: AppCompatActivity(){
     fun hideProgressDialog(){ progressDialog.dismiss() }
 
 //    fun updateUI(){}
-//    fun updateLocalization(){}
+   // abstract fun updateStrings(){}
 }

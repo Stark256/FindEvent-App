@@ -43,7 +43,7 @@
         <item name="itemIconTint">@drawable/navigation_selector</item>
         <item name="itemTextColor">@drawable/navigation_selector</item>
         <item name="android:elevation">16dp</item>
-        <item name="android:background">@color/dark</item>
+        <item name="android:background">@color/gray</item>
     </style>
 
     <style name="CommonToolbar" parent="@style/ThemeOverlay.AppCompat.ActionBar">

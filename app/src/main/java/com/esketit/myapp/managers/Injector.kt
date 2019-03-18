@@ -1,10 +1,13 @@
 package com.esketit.myapp.managers
 
+import com.esketit.myapp.application.App
 import com.esketit.myapp.services.EmailAuthService
 import com.esketit.myapp.services.FirebaseServices
 import com.esketit.myapp.util.PermissionManager
 
 object Injector{
+
+    var application: App? = null
 
     lateinit var auth: EmailAuthService
 
@@ -16,6 +19,8 @@ object Injector{
 
     lateinit var userManager: UserManager
 
+    lateinit var storageManager: StorageManager
+
     fun initData(){
         auth = EmailAuthService()
 
@@ -26,5 +31,8 @@ object Injector{
         locationManager = LocationManager()
 
         userManager = UserManager()
+
+        storageManager = StorageManager()
+
     }
 }
