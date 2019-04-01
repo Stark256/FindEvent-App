@@ -14,7 +14,6 @@ import com.esketit.myapp.ui.appearance.AppearanceActivity
 import com.esketit.myapp.ui.base.BaseFragment
 import com.esketit.myapp.ui.bug_report.BugReportActivity
 import com.esketit.myapp.ui.edit_profile.EditProfileActivity
-import com.esketit.myapp.ui.language.LanguageActivity
 import com.esketit.myapp.ui.notification.NotificationActivity
 import kotlinx.android.synthetic.main.fragment_settings.*
 import kotlinx.android.synthetic.main.layout_toolbar.view.*
@@ -37,13 +36,6 @@ class SettingsFragment: BaseFragment(), SettingsAdapter.SettingsClickListener{
             false
         }
         initViewModel()
-
-
-//        btn1.setOnClickListener {
-//            Injector.auth.signOut()
-////            startActivity(Intent(this, WelcomeActivity::class.java))
-////            finish()
-//        }
 
         initView()
     }
@@ -70,7 +62,6 @@ class SettingsFragment: BaseFragment(), SettingsAdapter.SettingsClickListener{
             SettingsBaseItem.SettingItemType.TYPE_PROFILE.value -> {  startActivity(Intent(contextMain, EditProfileActivity::class.java)) }
             SettingsBaseItem.SettingItemType.TYPE_NOTIFICATIONS.value -> {  startActivity(Intent(contextMain, NotificationActivity::class.java)) }
             SettingsBaseItem.SettingItemType.TYPE_APPEARANCE.value -> {  startActivity(Intent(contextMain, AppearanceActivity::class.java)) }
-            SettingsBaseItem.SettingItemType.TYPE_LANGUAGE.value -> {  startActivity(Intent(contextMain, LanguageActivity::class.java)) }
             SettingsBaseItem.SettingItemType.TYPE_BUG_REPORT.value -> {  startActivity(Intent(contextMain, BugReportActivity::class.java)) }
             SettingsBaseItem.SettingItemType.TYPE_ABOUT_US.value -> {  startActivity(Intent(contextMain, AboutUsActivity::class.java)) }
         }
@@ -82,7 +73,6 @@ class SettingsFragment: BaseFragment(), SettingsAdapter.SettingsClickListener{
                 SettingsEmptyItem(),
                 SettingsNotificationItem(R.drawable.notification, R.string.notification),
                 SettingsAppearanceItem(R.drawable.appearance, R.string.appearance),
-                SettingsLanguageItem(R.drawable.language, R.string.language),
                 SettingsEmptyItem(),
                 SettingsBugReportItem(R.drawable.bug, R.string.bug_report),
                 SettingsAboutUsItem(R.drawable.aboutus, R.string.about_us)

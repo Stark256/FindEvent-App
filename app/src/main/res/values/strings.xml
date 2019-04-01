@@ -46,4 +46,8 @@
     <string name="language">Language</string>
     <string name="about_us">About Us</string>
 
+    <string name="done">Done</string>
+    <string name="bio">Bio</string>
+    <string name="logout">Log Out</string>
+
 </resources>
