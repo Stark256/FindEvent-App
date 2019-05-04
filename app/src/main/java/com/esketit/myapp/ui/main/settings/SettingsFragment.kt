@@ -32,7 +32,7 @@ class SettingsFragment: BaseFragment(), SettingsAdapter.SettingsClickListener{
         setToolbarTitle(toolbar_view_settings.toolbar, contextMain.getString(R.string.title_settings))
         toolbar_view_settings.toolbar.inflateMenu(R.menu.menu_settings)
         toolbar_view_settings.toolbar.setOnMenuItemClickListener {
-            if(it.itemId == R.id.mi_edit){ startActivity(Intent(contextMain, EditProfileActivity::class.java)) }
+            if(it.itemId == R.id.mi_edit){ editPressed() }
             false
         }
         initViewModel()
@@ -59,7 +59,7 @@ class SettingsFragment: BaseFragment(), SettingsAdapter.SettingsClickListener{
 
     override fun onItemPressed(settingsItemType: Int) {
         when(settingsItemType){
-            SettingsBaseItem.SettingItemType.TYPE_PROFILE.value -> {  startActivity(Intent(contextMain, EditProfileActivity::class.java)) }
+            SettingsBaseItem.SettingItemType.TYPE_PROFILE.value -> {  editPressed() }
             SettingsBaseItem.SettingItemType.TYPE_NOTIFICATIONS.value -> {  startActivity(Intent(contextMain, NotificationActivity::class.java)) }
             SettingsBaseItem.SettingItemType.TYPE_APPEARANCE.value -> {  startActivity(Intent(contextMain, AppearanceActivity::class.java)) }
             SettingsBaseItem.SettingItemType.TYPE_BUG_REPORT.value -> {  startActivity(Intent(contextMain, BugReportActivity::class.java)) }
@@ -77,5 +77,9 @@ class SettingsFragment: BaseFragment(), SettingsAdapter.SettingsClickListener{
                 SettingsBugReportItem(R.drawable.bug, R.string.bug_report),
                 SettingsAboutUsItem(R.drawable.aboutus, R.string.about_us)
             ))
+    }
+
+    private fun editPressed() {
+        startActivity(Intent(contextMain, EditProfileActivity::class.java))
     }
 }

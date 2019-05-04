@@ -12,6 +12,7 @@
         <item name="android:background">@drawable/background_edit_text</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textColorHint">@color/white</item>
+        <!--<item name="errorTextAppearance">@style/MyErrorAppearance</item>-->
     </style>
 
     <style name="CommonTextInputEditText" parent="ThemeOverlay.MaterialComponents.TextInputEditText">
@@ -23,6 +24,30 @@
         <item name="android:imeOptions">actionNext</item>
         <item name="android:layout_marginStart">8dp</item>
         <item name="android:layout_marginEnd">8dp</item>
+    </style>
+
+    <style name="MyTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textColorHint">@color/white</item>
+        <item name="errorTextAppearance">@style/MyErrorAppearance</item>
+        <item name="boxStrokeColor">@color/colorAccent</item>
+    </style>
+
+    <style name="MyTextInputEditText" parent="ThemeOverlay.MaterialComponents.TextInputEditText">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textColorHint">@color/white</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:imeOptions">actionNext</item>
+        <!--<item name="android:maxHeight">40dp</item>-->
+    </style>
+
+    <style name="MyErrorAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">9sp</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textColor">@color/red</item>
     </style>
 
     <style name="CommonButtonStyle" parent="Widget.AppCompat.Button">
@@ -57,6 +82,7 @@
         <item name="colorControlNormal">@color/white</item>
         <item name="titleTextColor">@color/white</item>
     </style>
+
 
 
 </resources>
