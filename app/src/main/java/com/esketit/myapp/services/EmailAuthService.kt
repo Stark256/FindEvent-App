@@ -22,7 +22,7 @@ class EmailAuthService{
         get() { return (currentUser != null)}
 
 
-    fun signUp(email: String, pass: String, name: String, avatarImgURL: Uri?, latitude: Double, longitude: Double, response: (FirebaseResponse) -> Unit){
+    fun signUp(email: String, pass: String, name: String, avatarImgURL: Uri?, latitude: Double?, longitude: Double?, response: (FirebaseResponse) -> Unit){
         auth.createUserWithEmailAndPassword(email, pass)
             .addOnCompleteListener { task: Task<AuthResult> ->
                 if(task.isSuccessful){
@@ -39,7 +39,7 @@ class EmailAuthService{
                                             name = name,
                                             id = firebaseUser.uid,
                                             avatarImgURL = avatarUrl,
-                                            cordinate = GeoPoint(latitude, longitude)
+                                            cordinate = if (latitude != null && longitude != null) GeoPoint(latitude, longitude) else null
                                         )
                                         Injector.services.userRepository.createUser(user) { firebaseResponse ->
                                             response(
@@ -61,7 +61,8 @@ class EmailAuthService{
                                 email = email,
                                 name = name,
                                 id = it.uid,
-                                cordinate = GeoPoint(latitude, longitude))
+                                cordinate = if (latitude != null && longitude != null) GeoPoint(latitude, longitude) else null
+                            )
                             Injector.services.userRepository.createUser(user) { firebaseResponse ->
                                 response(FirebaseResponse(firebaseResponse.success, firebaseResponse.exception))
                             }

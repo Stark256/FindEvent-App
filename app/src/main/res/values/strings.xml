@@ -56,7 +56,7 @@
 
     <string name="edit_profile_tooltip_1">Choose or Change Image</string>
     <string name="edit_profile_tooltip_2">Please enter your real name</string>
-    <string name="edit_profile_tooltip_3">Add your location and near people can meet you</string>
+    <string name="edit_profile_tooltip_3">Show current location for friends</string>
     <string name="edit_profile_tooltip_4">Describe yourself (hobbies, profession, age)</string>
 
     <string name="general_minimumlengthis">Minimum length is</string>

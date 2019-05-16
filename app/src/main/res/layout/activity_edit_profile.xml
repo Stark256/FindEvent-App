@@ -84,13 +84,30 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"/>
 
-            <com.esketit.myapp.view.edit_text_view.EditTextView
-                    android:id="@+id/etv_location"
+            <RelativeLayout
+                    android:id="@+id/rl_location_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_username_tooltip"/>
+                    app:layout_constraintTop_toBottomOf="@+id/tv_username_tooltip">
+
+                <com.esketit.myapp.view.edit_text_view.EditTextView
+                        android:id="@+id/etv_location"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"/>
+
+                <Switch
+                        android:id="@+id/switch_location"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="16dp"
+                        android:padding="8dp"/>
+
+            </RelativeLayout>
 
             <TextView
                     android:id="@+id/tv_location_tooltip"
@@ -101,7 +118,7 @@
                     android:padding="16dp"
                     android:text="@string/edit_profile_tooltip_3"
                     android:gravity="center"
-                    app:layout_constraintTop_toBottomOf="@+id/etv_location"
+                    app:layout_constraintTop_toBottomOf="@+id/rl_location_container"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"/>
 
@@ -127,7 +144,6 @@
                     app:layout_constraintEnd_toEndOf="parent"/>
 
             <Button
-                    xmlns:android="http://schemas.android.com/apk/res/android"
                     android:id="@+id/btn_edit_profile_logout"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"

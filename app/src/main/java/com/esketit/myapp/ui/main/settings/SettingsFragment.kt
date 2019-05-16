@@ -22,6 +22,7 @@ class SettingsFragment: BaseFragment(), SettingsAdapter.SettingsClickListener{
 
     private lateinit var viewModel: SettingsViewModel
     private val adapter: SettingsAdapter = SettingsAdapter(this)
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_settings, container, false);
     }
@@ -45,11 +46,16 @@ class SettingsFragment: BaseFragment(), SettingsAdapter.SettingsClickListener{
         this.viewModel = ViewModelProviders.of(this).get(SettingsViewModel::class.java)
         viewModel.apply {
              user.observe(this@SettingsFragment, Observer<User?> {
-                 updateAdapterItems(it)
+                 if (isFragmentCreated) { updateAdapterItems(it) }
              })
 
-            updateApterItems()
+//            updateApterItems()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.updateApterItems()
     }
 
     private fun initView(){

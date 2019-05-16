@@ -166,6 +166,9 @@ class PermissionManager {
         val PERMISSION_CAMERA = 103
         @JvmField
         val PERMISSION_STORAGE_FOR_CAMERA = 104
+
+        @JvmField
+        val RESULT_LOCATION = 199
     }
 
 }

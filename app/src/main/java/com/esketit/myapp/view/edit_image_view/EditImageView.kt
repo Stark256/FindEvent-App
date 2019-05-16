@@ -11,6 +11,7 @@ import android.view.View
 import android.widget.*
 import com.bumptech.glide.Glide
 import com.esketit.myapp.R
+import kotlinx.android.synthetic.main.view_edit_image.view.*
 
 class EditImageView @JvmOverloads constructor(
     context: Context,
@@ -18,10 +19,10 @@ class EditImageView @JvmOverloads constructor(
     defStyleAttr: Int = 0): RelativeLayout(context, attrs, defStyleAttr){
 
 
-    private val root: CardView? by lazy { findViewById<CardView>(R.id.cv_avatar_border) }
-    private val cardView: CardView? by lazy { findViewById<CardView>(R.id.cv_avatar) }
-    private val imageView: ImageView? by lazy { findViewById<ImageView>(R.id.iv_avatar) }
-    private val textView: TextView? by lazy { findViewById<TextView>(R.id.tv_text) }
+    private var root: CardView? = null//by lazy { findViewById<CardView>(R.id.cv_avatar_border) }
+    private var cardView: CardView? = null//by lazy { findViewById<CardView>(R.id.cv_avatar) }
+    private var imageView: ImageView? = null//by lazy { findViewById<ImageView>(R.id.iv_avatar) }
+    private var textView: TextView? = null// by lazy { findViewById<TextView>(R.id.tv_text) }
 
     private lateinit var clickListener: EditImageViewClickListener
     private lateinit var dialogBaseClickListener: EditImageDialogBaseClickListener
@@ -49,8 +50,13 @@ class EditImageView @JvmOverloads constructor(
     //private var clickable: Boolean = true
 
     init {
-        LayoutInflater.from(context)
+        val view = LayoutInflater.from(context)
             .inflate(R.layout.view_edit_image, this, true)
+
+        root = view.cv_avatar_border
+        cardView = view.cv_avatar
+        imageView = view.iv_avatar
+        textView = view.tv_text
 
         initView()
     }
@@ -69,7 +75,7 @@ class EditImageView @JvmOverloads constructor(
             Glide.with(context)
                 .load(url)
                 .centerCrop()
-                /*.placeholder(R.drawable.loading_spinner)*/
+                .placeholder(R.drawable.ic_person_placeholder)
                 .into(it);
         }
 
@@ -81,7 +87,7 @@ class EditImageView @JvmOverloads constructor(
             Glide.with(context)
                 .load(uri)
                 .centerCrop()
-                /*.placeholder(R.drawable.loading_spinner)*/
+                .placeholder(R.drawable.ic_person_placeholder)
                 .into(it);
         }
         removeAddImageView()

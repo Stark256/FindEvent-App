@@ -24,6 +24,8 @@ import android.content.Context
 import android.graphics.drawable.Drawable
 import android.location.LocationManager
 import android.support.v4.content.ContextCompat
+import android.text.InputType
+import android.view.inputmethod.EditorInfo
 
 class SignUpActivity : BaseActivity() {
 
@@ -52,7 +54,7 @@ class SignUpActivity : BaseActivity() {
 
 
     private fun initView(){
-        btn_sing_up.setOnClickListener { btnPressed() }
+        btn_sing_up.setOnClickListener { signUpPressed() }
         eiv_sign_up_avatar.setBigView()
         eiv_sign_up_avatar.setAddImageView()
         eiv_sign_up_avatar.setDialogBaseCliclListener(object : EditImageDialogBaseClickListener{
@@ -68,16 +70,40 @@ class SignUpActivity : BaseActivity() {
                 }
             }
         })
+
+        etv_sign_up_name.initBuilder(hintRes = R.string.name,
+            colorRes = R.color.gray,
+            dimenRes = R.dimen.edit_text_view_radius,
+            inputType = InputType.TYPE_CLASS_TEXT,
+            imeOption = EditorInfo.IME_ACTION_NEXT)
+        etv_sign_up_name?.onFocusChanged { hasFocus -> if(!hasFocus) checkUserName() }
+        etv_sign_up_name?.onActionPressed { checkUserName() }
+
+        etv_sign_up_email.initBuilder(hintRes = R.string.email,
+            colorRes = R.color.gray,
+            dimenRes = R.dimen.edit_text_view_radius,
+            inputType = InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS,
+            imeOption = EditorInfo.IME_ACTION_NEXT)
+        etv_sign_up_email?.onFocusChanged { hasFocus -> if(!hasFocus) checkEmail() }
+        etv_sign_up_email?.onActionPressed { checkEmail() }
+
+        etv_sign_up_password.initBuilder(hintRes = R.string.pass,
+            colorRes = R.color.gray,
+            dimenRes = R.dimen.edit_text_view_radius,
+            inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD,
+            imeOption = EditorInfo.IME_ACTION_DONE)
+        etv_sign_up_password?.onFocusChanged { hasFocus -> if(!hasFocus) checkPass() }
+        etv_sign_up_password?.onActionPressed { signUpPressed() }
     }
 
 
-    private fun btnPressed(){
-        if(fieldValidation()) {
+    private fun signUpPressed(){
+        if(isFieldsValid()) {
             showProgressDialog()
             viewModel.signUpPressed(
-                et_sign_up_email.text.toString(),
-                et_sign_up_pass.text.toString(),
-                et_sign_up_name.text.toString(), uri) { response ->
+                etv_sign_up_email.text.toString(),
+                etv_sign_up_password.text.toString(),
+                etv_sign_up_name.text.toString(), uri) { response ->
                 hideProgressDialog()
                 if (response.success) {
                     setResult(Activity.RESULT_OK, Intent())
@@ -129,7 +155,7 @@ class SignUpActivity : BaseActivity() {
                 }
             }
 
-            199 -> {
+            PermissionManager.RESULT_LOCATION -> {
                 checkLocationEnabled()
             }
 
@@ -157,7 +183,7 @@ class SignUpActivity : BaseActivity() {
         }
     }
 
-    fun isLocationEnabled(): Boolean{
+    private fun isLocationEnabled(): Boolean{
         val manager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
         return manager.isProviderEnabled(LocationManager.GPS_PROVIDER)
     }
@@ -212,7 +238,7 @@ class SignUpActivity : BaseActivity() {
     }
 
 
-    private fun fieldValidation(): Boolean{
+    private fun isFieldsValid(): Boolean{
         var isValid = true
 
         if(checkUserName()) isValid = false
@@ -223,18 +249,18 @@ class SignUpActivity : BaseActivity() {
     }
 
     private fun checkUserName(): Boolean{
-        setError(ti_sign_up_name, FieldsValidatorUtil.isNameValid(et_sign_up_name.text.toString(), this))
-        return (ti_sign_up_name.error != null)
+        etv_sign_up_name.setError(FieldsValidatorUtil.isNameValid(etv_sign_up_name.text.toString(), this))
+        return etv_sign_up_name.hasError
     }
 
     private fun checkEmail(): Boolean{
-        setError(ti_sign_up_email, FieldsValidatorUtil.isEmailValid(et_sign_up_email.text.toString(), this))
-        return (ti_sign_up_email.error != null)
+        etv_sign_up_email.setError(FieldsValidatorUtil.isEmailValid(etv_sign_up_email.text.toString(), this))
+        return etv_sign_up_email.hasError
     }
 
     private fun checkPass(): Boolean{
-        setError(ti_sign_up_pass, FieldsValidatorUtil.isPassValid(et_sign_up_pass.text.toString(), this))
-        return (ti_sign_up_pass.error != null)
+        etv_sign_up_password.setError(FieldsValidatorUtil.isPassValid(etv_sign_up_password.text.toString(), this))
+        return etv_sign_up_password.hasError
     }
 
 }

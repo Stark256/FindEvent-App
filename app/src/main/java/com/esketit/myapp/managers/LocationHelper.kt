@@ -2,6 +2,7 @@ package com.esketit.myapp.managers
 
 import android.content.Context
 import android.support.v7.app.AppCompatActivity
+import com.esketit.myapp.util.PermissionManager
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 
@@ -66,7 +67,7 @@ class LocationHelper(var activity: AppCompatActivity?){
                     if(exception.statusCode == LocationSettingsStatusCodes.RESOLUTION_REQUIRED){
                         exception.startResolutionForResult(
                             activity,
-                            199);
+                            PermissionManager.RESULT_LOCATION);
                     }
                 }
             }

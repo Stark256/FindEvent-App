@@ -2,6 +2,9 @@ package com.esketit.myapp.ui.main
 
 import android.annotation.SuppressLint
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Context
+import android.content.Intent
+import android.location.LocationManager
 import android.os.Bundle
 import android.support.design.internal.BottomNavigationItemView
 import android.support.design.internal.BottomNavigationMenuView
@@ -9,12 +12,15 @@ import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.util.Log
 import com.esketit.myapp.R
+import com.esketit.myapp.managers.Injector
+import com.esketit.myapp.managers.LocationHelper
 import com.esketit.myapp.ui.base.BaseActivity
 import com.esketit.myapp.ui.main.chats.ChatsFragment
 import com.esketit.myapp.ui.main.events.EventsFragment
 import com.esketit.myapp.ui.main.friends.FriendsFragment
 import com.esketit.myapp.ui.main.games.GamesFragment
 import com.esketit.myapp.ui.main.settings.SettingsFragment
+import com.esketit.myapp.util.PermissionManager
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
@@ -35,6 +41,8 @@ class MainActivity : BaseActivity() {
 
 
     private lateinit var viewModel: MainViewModel
+    private val locationManager = LocationHelper(this)
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,9 +55,43 @@ class MainActivity : BaseActivity() {
         replaceFragment(EventsFragment())
 
         viewModel.setTimer()
+        checkLocationEnabled()
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when(requestCode) {
+            PermissionManager.RESULT_LOCATION -> {
+                checkLocationEnabled()
+            }
+        }
+    }
 
+    private fun checkLocationEnabled(){
+        if(viewModel.currentLocationEnabled) {
+            if(Injector.permissionManager.isPermissionLocationGranted(this)) {
+                if (!isLocationEnabled()) {
+                    locationManager.init(this)
+                } else {
+                    viewModel.updateLocation(Injector.locationManager.getLastLocation(this))
+                }
+            }
+        }
+    }
+
+    private fun isLocationEnabled(): Boolean{
+        val manager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        return manager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+            PermissionManager.PERMISSION_ACCESS_FINE_LOCATION -> {
+                checkLocationEnabled()
+            }
+        }
+    }
 
     private fun initView(){
 

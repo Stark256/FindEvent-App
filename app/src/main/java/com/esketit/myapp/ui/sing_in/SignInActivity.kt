@@ -4,7 +4,9 @@ import android.app.Activity
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
+import android.text.InputType
 import android.view.MenuItem
+import android.view.inputmethod.EditorInfo
 import com.esketit.myapp.R
 import com.esketit.myapp.ui.base.BaseActivity
 import com.esketit.myapp.ui.forgot_password.ForgotPassActivity
@@ -28,16 +30,32 @@ class SignInActivity : BaseActivity() {
     }
 
     private fun initView(){
-        btn_sign_in.setOnClickListener { btnPressed() }
+        btn_sign_in.setOnClickListener { signInPressed() }
         bt_forgot_pass.setOnClickListener { forgotPassPressed() }
+
+        etv_sign_in_email.initBuilder(hintRes = R.string.email,
+            colorRes = R.color.gray,
+            dimenRes = R.dimen.edit_text_view_radius,
+            inputType = InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS,
+            imeOption = EditorInfo.IME_ACTION_NEXT)
+        etv_sign_in_email?.onFocusChanged { hasFocus -> if(!hasFocus) checkEmail() }
+        etv_sign_in_email?.onActionPressed { checkEmail() }
+
+        etv_sign_in_password.initBuilder(hintRes = R.string.pass,
+            colorRes = R.color.gray,
+            dimenRes = R.dimen.edit_text_view_radius,
+            inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD,
+            imeOption = EditorInfo.IME_ACTION_DONE)
+        etv_sign_in_password?.onFocusChanged { hasFocus -> if(!hasFocus) checkPass() }
+        etv_sign_in_password?.onActionPressed { signInPressed() }
     }
 
     /*     Button Actions     */
 
-    private fun btnPressed(){
-        if(fieldValidation()) {
+    private fun signInPressed(){
+        if(isFieldsValid()) {
             showProgressDialog()
-            viewModel.signInPressed(et_sign_in_email.text.toString(), et_sign_in_pass.text.toString()) { response ->
+            viewModel.signInPressed(etv_sign_in_email.text.toString(), etv_sign_in_password.text.toString()) { response ->
                 hideProgressDialog()
                 if (response.success) {
                     setResult(Activity.RESULT_OK, Intent())
@@ -58,7 +76,7 @@ class SignInActivity : BaseActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun fieldValidation(): Boolean{
+    private fun isFieldsValid(): Boolean{
         var isValid = true
 
         if(checkEmail()) isValid = false
@@ -69,13 +87,13 @@ class SignInActivity : BaseActivity() {
 
 
     private fun checkEmail(): Boolean{
-        setError(ti_sign_in_email, FieldsValidatorUtil.isEmailValid(et_sign_in_email.text.toString(), this))
-        return (ti_sign_in_email.error != null)
+        etv_sign_in_email.setError(FieldsValidatorUtil.isEmailValid(etv_sign_in_email.text.toString(), this))
+        return etv_sign_in_email.hasError
     }
 
     private fun checkPass(): Boolean{
-        setError(ti_sign_in_pass, FieldsValidatorUtil.isPassValid(et_sign_in_pass.text.toString(), this))
-        return (ti_sign_in_pass.error != null)
+        etv_sign_in_password.setError(FieldsValidatorUtil.isPassValid(etv_sign_in_password.text.toString(), this))
+        return etv_sign_in_password.hasError
     }
 
 }

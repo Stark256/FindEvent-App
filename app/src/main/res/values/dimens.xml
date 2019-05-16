@@ -15,4 +15,6 @@
     <dimen name="edit_image_view_small_border_radius">39dp</dimen>
     <dimen name="edit_image_view_small_size">72dp</dimen>
     <dimen name="edit_image_view_small_radius">36dp</dimen>
+
+    <dimen name="edit_text_view_radius">8dp</dimen>
 </resources>

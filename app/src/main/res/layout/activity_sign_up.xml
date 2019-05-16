@@ -40,6 +40,7 @@
                     android:id="@+id/eiv_sign_up_avatar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:clickable="true"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintBottom_toTopOf="@+id/guideline"
@@ -52,76 +53,38 @@
                     android:orientation="horizontal"
                     app:layout_constraintGuide_percent="0.3" />
 
-            <android.support.design.widget.TextInputLayout
-                    android:id="@+id/ti_sign_up_name"
+
+            <com.esketit.myapp.view.edit_text_view.EditTextView
+                    android:id="@+id/etv_sign_up_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/CommonTextInputLayout"
                     android:layout_marginBottom="8dp"
                     android:layout_marginTop="72dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toTopOf="@+id/ti_sign_up_email"
+                    app:layout_constraintBottom_toTopOf="@+id/etv_sign_up_email"
                     app:layout_constraintTop_toBottomOf="@+id/eiv_sign_up_avatar"
-                    app:layout_constraintVertical_bias="1.0">
+                    app:layout_constraintVertical_bias="1.0"/>
 
 
-                <android.support.design.widget.TextInputEditText
-                        android:id="@+id/et_sign_up_name"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        style="@style/CommonTextInputEditText"
-                        android:hint="@string/name"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintBottom_toTopOf="@+id/et_sign_up_email"/>
-
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                    android:id="@+id/ti_sign_up_email"
+            <com.esketit.myapp.view.edit_text_view.EditTextView
+                    android:id="@+id/etv_sign_up_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/CommonTextInputLayout"
                     android:layout_marginBottom="8dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toTopOf="@+id/ti_sign_up_pass">
+                    app:layout_constraintBottom_toTopOf="@+id/etv_sign_up_password"/>
 
-                <android.support.design.widget.TextInputEditText
-                        android:id="@+id/et_sign_up_email"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        style="@style/CommonTextInputEditText"
-                        android:hint="@string/email"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintBottom_toTopOf="@+id/et_sign_up_pass"/>
 
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                    android:id="@+id/ti_sign_up_pass"
+            <com.esketit.myapp.view.edit_text_view.EditTextView
+                    android:id="@+id/etv_sign_up_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/CommonTextInputLayout"
                     android:layout_marginBottom="8dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toTopOf="@+id/btn_sing_up">
-
-                <android.support.design.widget.TextInputEditText
-                        android:id="@+id/et_sign_up_pass"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        style="@style/CommonTextInputEditText"
-                        android:inputType="textPassword"
-                        android:hint="@string/pass"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintBottom_toTopOf="@+id/btn_sing_up"/>
-
-            </android.support.design.widget.TextInputLayout>
+                    app:layout_constraintBottom_toTopOf="@+id/btn_sing_up"/>
 
             <Button
                     android:id="@+id/btn_sing_up"

@@ -5,6 +5,7 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.location.LocationManager
 import android.net.Uri
@@ -20,6 +21,7 @@ import com.esketit.myapp.models.firebase.User
 import com.esketit.myapp.ui.base.BaseActivity
 import com.esketit.myapp.ui.welcome.WelcomeActivity
 import com.esketit.myapp.util.FieldsValidatorUtil
+import com.esketit.myapp.util.PermissionManager
 import com.esketit.myapp.view.edit_image_view.EditImageDialogBaseClickListener
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
@@ -42,9 +44,9 @@ class  EditProfileActivity : BaseActivity() {
         setSupportActionBar(this.toolbar_view_edit_profile.toolbar, true, true)
         setToolbarTitle(getString(R.string.edit_profile))
 
-        initView()
-
         initViewModel()
+        initView()
+        loadData()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -75,6 +77,7 @@ class  EditProfileActivity : BaseActivity() {
                     if (resultCode == Activity.RESULT_OK) {
                         val resultUri = result.getUri();
                         eiv_edit_profile_avatar.loadImage(resultUri)
+                        viewModel.uri = resultUri
 
                     } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                         //Timber.i("Crop image error = ${result.error}")
@@ -82,8 +85,8 @@ class  EditProfileActivity : BaseActivity() {
                 }
             }
 
-            199 -> {
-                locationPressed()
+            PermissionManager.RESULT_LOCATION -> {
+                locationEnable()
             }
 
         }
@@ -102,8 +105,11 @@ class  EditProfileActivity : BaseActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun initViewModel(){
+    private fun initViewModel() {
         this.viewModel = ViewModelProviders.of(this).get(EditProfileViewModel::class.java)
+    }
+
+    private fun loadData(){
         this.viewModel.apply {
             user.observe(this@EditProfileActivity, Observer<User>{ user ->
                 user?.let { updateUserUI(user) }
@@ -126,7 +132,13 @@ class  EditProfileActivity : BaseActivity() {
             colorRes = R.color.gray,
             inputType = InputType.TYPE_CLASS_TEXT,
             focusable = false)
-        etv_location?.editTextPressed { locationPressed() }
+        etv_location?.editTextPressed { switch_location?.performClick()}
+
+        switch_location?.isChecked = viewModel.isLocationEnabled
+        switch_location?.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) { locationEnable() }
+            else { locationDisable() }
+        }
 
         // Bio
         etv_bio?.initBuilder(hintRes = R.string.bio,
@@ -158,8 +170,14 @@ class  EditProfileActivity : BaseActivity() {
 
     private fun savePressed() {
         if (isFieldValid()) {
-            // TODO save user data
-            // TODO compare user data from fields and user data fro view model and then save if needed
+            showProgressDialog()
+            viewModel.updateUser(etv_name.text.toString(),
+                if (etv_bio.hasText)  etv_bio.text.toString() else null) {response ->
+                hideProgressDialog()
+                if (response.success) {
+                this@EditProfileActivity.onBackPressed()
+                } else { showError(response.localizedMessage) }
+            }
         }
     }
 
@@ -171,13 +189,21 @@ class  EditProfileActivity : BaseActivity() {
         finish()
     }
 
-    private fun locationPressed() {
+    private fun locationDisable() {
+        viewModel.apply {
+            isLocationEnabled = false
+            location = null
+        }
+    }
+
+    private fun locationEnable() {
+        // TODO dosent show permision
+        viewModel.isLocationEnabled = true
         if(Injector.permissionManager.isPermissionLocationGranted(this)) {
             if (!isLocationEnabled()) {
                 locationManager.init(this)
             } else {
-                //viewModel.setLocation(Injector.locationManager.getLastLocation(this))
-                // TODO open location screen
+                viewModel.location = Injector.locationManager.getLastLocation(this)
             }
         }
     }
@@ -214,9 +240,33 @@ class  EditProfileActivity : BaseActivity() {
         }
     }
 
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+            PermissionManager.PERMISSION_CAMERA,
+            PermissionManager.PERMISSION_STORAGE_FOR_CAMERA -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    openCamera()
+                } else {
+                    // MessageUtil.showToast("Permission for camera is not allowed")
+                }
+            }
+            PermissionManager.PERMISSION_STORAGE_FOR_GALLERY -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    openGallery()
+                } else {
+                    //MessageUtil.showToast(getString(R.string.perrmission_for_galary))
+                }
+            }
+            PermissionManager.PERMISSION_ACCESS_FINE_LOCATION -> {
+                locationEnable()
+            }
+        }
+    }
+
     private fun updateUserUI(user: User) {
         etv_name.text = user.name
-        etv_bio.text = user.bio
+        etv_bio.text = user.description
         eiv_edit_profile_avatar.loadImage(user.avatarImgURL)
         // TODO set location
     }

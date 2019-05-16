@@ -16,8 +16,8 @@ class SignUpViewModel: ViewModel() {
 
     fun signUpPressed(email: String, pass: String, name: String, uri: Uri?, response: (FirebaseResponse) -> Unit){
         Injector.auth.signUp(email, pass, name, uri,
-            currentLocation?.latitude?: 0.0,
-            currentLocation?.longitude?: 0.0) { firebaseResponse ->
+            currentLocation?.latitude,
+            currentLocation?.longitude) { firebaseResponse ->
 
             if(firebaseResponse.success){
                 Injector.userManager.updateActiveUser{ updateResponse -> response(updateResponse) }

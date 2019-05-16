@@ -3,25 +3,29 @@ package com.esketit.myapp.view.edit_text_view
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.support.annotation.ColorRes
+import android.support.annotation.DimenRes
 import android.support.annotation.DrawableRes
 import android.support.annotation.StringRes
 import android.support.design.widget.TextInputEditText
 import android.support.design.widget.TextInputLayout
 import android.support.v4.content.ContextCompat
+import android.support.v7.widget.CardView
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.inputmethod.EditorInfo
 import android.widget.LinearLayout
 import com.esketit.myapp.R
+import kotlinx.android.synthetic.main.view_edit_text.view.*
 
 class EditTextView @JvmOverloads constructor(
         context: Context,
         attrs: AttributeSet? = null,
         defStyleAttr: Int = 0): LinearLayout(context, attrs, defStyleAttr){
 
-    private val root: LinearLayout? by lazy { findViewById<LinearLayout>(R.id.root_edit_text) }
-    private val inputLayout: TextInputLayout? by lazy { findViewById<TextInputLayout>(R.id.text_input_layout) }
-    private val editText: TextInputEditText? by lazy { findViewById<TextInputEditText>(R.id.text_input_edit_text) }
+    private var rootCard: CardView? = null//by lazy { findViewById<CardView>(R.id.root_card) }
+    private var root: LinearLayout? = null//by lazy { findViewById<LinearLayout>(R.id.root_edit_text) }
+    private var inputLayout: TextInputLayout? = null//by lazy { findViewById<TextInputLayout>(R.id.text_input_layout) }
+    private var editText: TextInputEditText? = null//by lazy { findViewById<TextInputEditText>(R.id.text_input_edit_text) }
 
     private var validateListener: ValidateListener? = null
     private var clickListener: ClickListener? = null
@@ -40,8 +44,13 @@ class EditTextView @JvmOverloads constructor(
         get() { return editText?.text?.toString()?.isNotBlank() ?: false }
 
     init {
-        LayoutInflater.from(context)
+        val view = LayoutInflater.from(context)
             .inflate(R.layout.view_edit_text, this, true)
+
+        rootCard = view.root_card
+        root = view.root_edit_text
+        inputLayout = view.text_input_layout
+        editText = view.text_input_edit_text
     }
 
     fun initBuilder(@StringRes hintRes: Int? = null,
@@ -53,7 +62,8 @@ class EditTextView @JvmOverloads constructor(
                     inputType: Int? = null,
                     imeOption: Int? = null,
                     clickListener: ClickListener? = null,
-                    validateListener: ValidateListener? = null) {
+                    validateListener: ValidateListener? = null,
+                    @DimenRes dimenRes: Int? = null) {
 
         hintRes?.let { setHint(it) }
         hintString?.let { setHint(it) }
@@ -65,7 +75,12 @@ class EditTextView @JvmOverloads constructor(
         imeOption?.let { setImeOption(it) }
         clickListener?.let { setClickListener(it) }
         validateListener?.let { setValidateListener(it) }
+        dimenRes?.let { setDimen(it) }
 
+    }
+
+    fun setDimen(@DimenRes dimenRes: Int) {
+        rootCard?.radius = context.resources.getDimension(dimenRes)
     }
 
     fun setHint(@StringRes hintText: Int) {
@@ -77,15 +92,15 @@ class EditTextView @JvmOverloads constructor(
     }
 
     fun setRootBackgroundDrawable(@DrawableRes drawableRes: Int) {
-        root?.background = ContextCompat.getDrawable(context, drawableRes)
+        rootCard?.background = ContextCompat.getDrawable(context, drawableRes)
     }
 
     fun setRootBackgroundDrawable(drawable: Drawable) {
-        root?.background = drawable
+        rootCard?.background = drawable
     }
 
     fun setRootBackgroundColor(@ColorRes colorRes: Int) {
-        root?.setBackgroundColor(ContextCompat.getColor(context, colorRes))
+        rootCard?.setCardBackgroundColor(ContextCompat.getColor(context, colorRes))
     }
 
     fun setEditFocusable(focusable: Boolean) {

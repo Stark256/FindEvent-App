@@ -2,7 +2,9 @@ package com.esketit.myapp.ui.forgot_password
 
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.text.InputType
 import android.view.MenuItem
+import android.view.inputmethod.EditorInfo
 import com.esketit.myapp.R
 import com.esketit.myapp.ui.base.BaseActivity
 import com.esketit.myapp.util.FieldsValidatorUtil
@@ -29,14 +31,22 @@ class ForgotPassActivity : BaseActivity() {
     }
 
     private fun initView(){
-        btn_reset_pass.setOnClickListener { resetPassPressed() }
+        btn_reset_pass.setOnClickListener { resetPressed() }
+
+        etv_reset_email.initBuilder(hintRes = R.string.name,
+            colorRes = R.color.gray,
+            dimenRes = R.dimen.edit_text_view_radius,
+            inputType = InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS,
+            imeOption = EditorInfo.IME_ACTION_DONE)
+        etv_reset_email?.onFocusChanged { hasFocus -> if(!hasFocus) checkEmail() }
+        etv_reset_email?.onActionPressed { resetPressed() }
     }
 
     /*     Button Actions     */
 
-    private fun resetPassPressed(){
+    private fun resetPressed(){
         if(fieldValidation()){
-            viewModel.resetPassword(et_reset_email.text.toString()) { response ->
+            viewModel.resetPassword(etv_reset_email.text.toString()) { response ->
                 hideProgressDialog()
                 if (response.success) { /*finish()*/ }
                 else { showError(response.localizedMessage) }
@@ -61,7 +71,7 @@ class ForgotPassActivity : BaseActivity() {
 
 
     private fun checkEmail(): Boolean{
-        setError(ti_reset_email, FieldsValidatorUtil.isEmailValid(et_reset_email.text.toString(), this))
-        return (ti_reset_email.error != null)
+        etv_reset_email.setError(FieldsValidatorUtil.isEmailValid(etv_reset_email.text.toString(), this))
+        return etv_reset_email.hasError
     }
 }
