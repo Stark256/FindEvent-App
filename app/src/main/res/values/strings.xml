@@ -16,7 +16,7 @@
     <string name="empty_field_message">This field can not be empty</string>
 
     <string name="required_camera_permission">Application needs permission to access your camera</string>
-    <string name="required_location_permission">Application needs permission to search your location</string>
+    <string name="required_location_permission">Application needs permission to get your location</string>
     <string name="required_write_to_storage_permission">Application needs permission to write at disc</string>
     <string name="reject_permission">Never show</string>
     <string name="permission_required">Requires permission</string>

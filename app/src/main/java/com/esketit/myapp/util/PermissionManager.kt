@@ -2,6 +2,7 @@ package com.esketit.myapp.util
 
 import android.Manifest
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Context
 import android.content.pm.PackageManager
 import android.support.v4.app.ActivityCompat
@@ -13,8 +14,6 @@ import com.esketit.myapp.view.BaseDialog
 
 class PermissionManager {
 
-    private var dialog: BaseDialog? = null
-
     fun isPermissionLocationGranted(context: Context = App.instance, requestPermission: (() -> Unit)? = null): Boolean{
         return ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
     }
@@ -25,6 +24,10 @@ class PermissionManager {
 
     fun isPermissionCameraWriteStorageGranted(activity: AppCompatActivity, request: (() ->  Unit)? = null): Boolean {
         return permissionCameraGranted(activity, request).isSuccess && permissionStorageForCameraGranted(activity, request).isSuccess
+    }
+
+    fun isPermissionForGalleryGranted(activity: AppCompatActivity, request: (() ->  Unit)? = null): Boolean {
+        return permissionStorageForGalleryGranted(activity, request).isSuccess
     }
 
     private fun permissionStorageForCameraGranted(activity: AppCompatActivity, request: (() ->  Unit)? = null): PermissionResponse {
@@ -58,9 +61,6 @@ class PermissionManager {
         )
     }
 
-    fun isPermissionForGalleryGranted(activity: AppCompatActivity, request: (() ->  Unit)? = null): Boolean {
-        return permissionStorageForGalleryGranted(activity, request).isSuccess
-    }
 
     fun permissionStorageForGalleryGranted(activity: AppCompatActivity, requestPermission: (() -> Unit)? = null): PermissionResponse {
         return checkPermission(
@@ -78,7 +78,6 @@ class PermissionManager {
         if (ActivityCompat.checkSelfPermission(activity, permission) != PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(activity, permission)) {
                 if (shouldShowRequestPermission(permission)) {
-                    dialog?.dismiss()
 
                     showInfoDialog(
                         checkText,
@@ -106,7 +105,7 @@ class PermissionManager {
 
     private fun shouldShowRequestPermission(permission: String): Boolean {
         return when (permission) {
-            Manifest.permission.ACCESS_FINE_LOCATION -> false//!shouldHideRequestPermissionLocation()
+            Manifest.permission.ACCESS_FINE_LOCATION -> true//!shouldHideRequestPermissionLocation()
             else -> true
         }
     }
@@ -125,22 +124,22 @@ class PermissionManager {
 
     private fun showInfoDialog(checkText: String, activity: AppCompatActivity, requestPermission: (() -> Unit)? = null, message: String,
                                permissions: Array<String>, requestCode: Int) {
-        dialog = BaseDialog.Builder()
-            .setTitle(activity.getString(R.string.permission_required))
-            .setMessage(message)
-            .setPositiveButton(R.string.ok) {view ->
-                requestPermissions(activity, permissions, requestCode, requestPermission)
-                dialog?.dismiss()
-                dialog = null
 
-            }
-            .setNegativeButton(R.string.cancel) {view ->
-                dialog?.dismiss()
-                dialog = null
-            }
-            //.setOnCheckListener(checkText) { view, isChecked -> disablePermissionDialog(permissions, isChecked) }
-            .build()
-        dialog?.show(activity.supportFragmentManager, null)
+            AlertDialog.Builder(activity)
+                .setTitle(activity.getString(R.string.permission_required))
+                .setMessage(message)
+                .setCancelable(false)
+                .setPositiveButton(R.string.ok) { dialog, _ ->
+                    requestPermissions(activity, permissions, requestCode, requestPermission)
+                    dialog?.dismiss()
+                }
+                .setNegativeButton(R.string.cancel) { dialog, _ ->
+                    dialog?.dismiss()
+                }
+                //.setOnCheckListener(checkText) { view, isChecked -> disablePermissionDialog(permissions, isChecked) }
+                .show()
+
+
     }
 
 //    private fun disablePermissionDialog(permissions: Array<String>, isChecked: Boolean) {

@@ -197,9 +197,8 @@ class  EditProfileActivity : BaseActivity() {
     }
 
     private fun locationEnable() {
-        // TODO dosent show permision
-        viewModel.isLocationEnabled = true
         if(Injector.permissionManager.isPermissionLocationGranted(this)) {
+            viewModel.isLocationEnabled = true
             if (!isLocationEnabled()) {
                 locationManager.init(this)
             } else {
@@ -208,7 +207,7 @@ class  EditProfileActivity : BaseActivity() {
         }
     }
 
-    fun isLocationEnabled(): Boolean{
+    fun isLocationEnabled(): Boolean {
         val manager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
         return manager.isProviderEnabled(LocationManager.GPS_PROVIDER)
     }
@@ -268,7 +267,12 @@ class  EditProfileActivity : BaseActivity() {
         etv_name.text = user.name
         etv_bio.text = user.description
         eiv_edit_profile_avatar.loadImage(user.avatarImgURL)
-        // TODO set location
+        user.cordinate?.let {
+            Injector.locationManager.getAddress(this@EditProfileActivity,
+                it.latitude, it.longitude)?.let {
+                etv_location.text = it
+            }
+        }
     }
 
     private fun isFieldValid() : Boolean {
