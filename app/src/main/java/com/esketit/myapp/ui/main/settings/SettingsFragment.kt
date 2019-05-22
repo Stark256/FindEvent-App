@@ -7,6 +7,8 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.*
 import com.esketit.myapp.R
+import com.esketit.myapp.managers.Injector
+import com.esketit.myapp.managers.UserManager
 import com.esketit.myapp.models.firebase.User
 import com.esketit.myapp.models.local.settings_models.*
 import com.esketit.myapp.ui.about_us.AboutUsActivity
@@ -86,6 +88,10 @@ class SettingsFragment: BaseFragment(), SettingsAdapter.SettingsClickListener{
     }
 
     private fun editPressed() {
-        startActivity(Intent(contextMain, EditProfileActivity::class.java))
+//        startActivity(Intent(contextMain, EditProfileActivity::class.java))
+
+        Injector.services.userRepository.getFriends(Injector.userManager.activeUser!!.id) {
+
+        }
     }
 }

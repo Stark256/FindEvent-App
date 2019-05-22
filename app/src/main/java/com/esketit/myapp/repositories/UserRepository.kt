@@ -9,7 +9,7 @@ import com.google.firebase.firestore.GeoPoint
 class UserRepository{
 
     val COLLECTION_USER = "users"
-
+    val COLLECTION_FRIENDS = "friends"
 
     val db = FirebaseFirestore.getInstance()
 
@@ -52,6 +52,20 @@ class UserRepository{
         db.collection(COLLECTION_USER).document(userID).update(User.Key.cordinateKey.value, cordinate)
             .addOnCompleteListener {
                 firebaseResponse(FirebaseResponse(it.isSuccessful, it.exception))
+            }
+
+    }
+
+    fun getFriends(userID: String, firebaseResponse: (FirebaseResponse) -> Unit) {
+        db.collection(COLLECTION_USER).document(userID).collection(COLLECTION_FRIENDS).get()
+            .addOnSuccessListener {
+                // TODO resolve conflicts and get friends
+                // TODO research to get friends like User models or references
+//                it.documents
+//                (it.documents[0].data.get("user") as DocumentReference).get()
+                firebaseResponse(FirebaseResponse(false, null))
+            }.addOnFailureListener {
+                firebaseResponse(FirebaseResponse(false, it))
             }
 
     }
