@@ -2,6 +2,7 @@ package com.esketit.myapp.repositories
 
 import com.esketit.myapp.models.firebase.FirebaseResponse
 import com.esketit.myapp.models.firebase.User
+import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.GeoPoint
@@ -56,16 +57,33 @@ class UserRepository{
 
     }
 
-    fun getFriends(userID: String, firebaseResponse: (FirebaseResponse) -> Unit) {
+    fun getFriends(userID: String, firebaseResponse: (FirebaseResponse, ArrayList<User>?) -> Unit) {
         db.collection(COLLECTION_USER).document(userID).collection(COLLECTION_FRIENDS).get()
             .addOnSuccessListener {
-                // TODO resolve conflicts and get friends
-                // TODO research to get friends like User models or references
-//                it.documents
-//                (it.documents[0].data.get("user") as DocumentReference).get()
-                firebaseResponse(FirebaseResponse(false, null))
+                // TODO refactor the code below
+
+                val friends = ArrayList<User>()
+                val documentsSize = it.documents.size
+                for (item in it.documents) {
+
+                    (item.data?.get("user") as DocumentReference).get()
+                        .addOnCompleteListener { documentSnapshot ->
+
+                        if (documentSnapshot.isSuccessful) {
+                            documentSnapshot.result?.toObject(User::class.java)?.let {
+                                friends.add(it)
+                                if (documentsSize == friends.size) {
+                                    firebaseResponse(FirebaseResponse(true, null), friends)
+                                }
+                            }
+                        }
+
+                    }
+                }
+
+
             }.addOnFailureListener {
-                firebaseResponse(FirebaseResponse(false, it))
+                firebaseResponse(FirebaseResponse(false, it), null)
             }
 
     }
