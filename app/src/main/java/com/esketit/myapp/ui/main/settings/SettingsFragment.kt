@@ -88,6 +88,11 @@ class SettingsFragment: BaseFragment(), SettingsAdapter.SettingsClickListener{
     }
 
     private fun editPressed() {
-        startActivity(Intent(contextMain, EditProfileActivity::class.java))
+//        startActivity(Intent(contextMain, EditProfileActivity::class.java))
+
+        Injector.services.userRepository.getFriends(Injector.userManager.activeUser!!.id) { firebaseResponse, arrayList ->
+            firebaseResponse
+            arrayList
+        }
     }
 }

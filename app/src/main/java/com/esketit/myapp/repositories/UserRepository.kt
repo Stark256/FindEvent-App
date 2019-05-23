@@ -2,10 +2,10 @@ package com.esketit.myapp.repositories
 
 import com.esketit.myapp.models.firebase.FirebaseResponse
 import com.esketit.myapp.models.firebase.User
-import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.firestore.FieldValue
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.GeoPoint
+import com.google.firebase.firestore.*
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import java.lang.NullPointerException
 
 class UserRepository{
 
@@ -57,35 +57,70 @@ class UserRepository{
 
     }
 
+
+    //                val friends = ArrayList<User>()
+//                val documentsSize = it.documents.size
+//                for (item in it.documents) {
+//
+//                    (item.data?.get("user") as DocumentReference).get()
+//                        .addOnCompleteListener { documentSnapshot ->
+//
+//                        if (documentSnapshot.isSuccessful) {
+//                            documentSnapshot.result?.toObject(User::class.java)?.let {
+//                                friends.add(it)
+//                                if (documentsSize == friends.size) {
+//                                    firebaseResponse(FirebaseResponse(true, null), friends)
+//                                }
+//                            }
+//                        }
+//
+//                    }
+//                }
+
     fun getFriends(userID: String, firebaseResponse: (FirebaseResponse, ArrayList<User>?) -> Unit) {
         db.collection(COLLECTION_USER).document(userID).collection(COLLECTION_FRIENDS).get()
             .addOnSuccessListener {
                 // TODO refactor the code below
 
-                val friends = ArrayList<User>()
-                val documentsSize = it.documents.size
-                for (item in it.documents) {
+                Observable.fromIterable(it.documents).flatMap { getUserByReference(it) }
+                    .toList().toObservable()
 
-                    (item.data?.get("user") as DocumentReference).get()
-                        .addOnCompleteListener { documentSnapshot ->
+                    .observeOn(AndroidSchedulers.mainThread())
 
-                        if (documentSnapshot.isSuccessful) {
-                            documentSnapshot.result?.toObject(User::class.java)?.let {
-                                friends.add(it)
-                                if (documentsSize == friends.size) {
-                                    firebaseResponse(FirebaseResponse(true, null), friends)
-                                }
-                            }
-                        }
+                    /*.map { result -> result }*/.subscribe({ t: MutableList<User> ->
+                        val friends = ArrayList<User>()
+                        t.forEach { friends.add(it) }
 
-                    }
-                }
+                        firebaseResponse(FirebaseResponse(true, null), friends)
+                    },{
+                        firebaseResponse(FirebaseResponse(false, null), null)
+                    }) //{ t: MutableList<User> ->
 
 
             }.addOnFailureListener {
                 firebaseResponse(FirebaseResponse(false, it), null)
             }
 
+    }
+
+
+    private fun getUserByReference(documentSnapshot: DocumentSnapshot) : Observable<User> {
+        return Observable.create { emitter ->
+            (documentSnapshot.get("user") as DocumentReference).get()
+                .addOnSuccessListener { snapshot ->
+
+                    val user = snapshot.toObject(User::class.java)
+
+                    if (user != null ) {
+                        emitter.onNext(user)
+                    } else {
+                        emitter.onError(NullPointerException())
+                    }
+
+            }.addOnFailureListener {
+                emitter.onError(it)
+            }
+        }
     }
 
 }
