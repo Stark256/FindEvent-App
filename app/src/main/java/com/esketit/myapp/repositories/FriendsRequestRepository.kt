@@ -3,8 +3,10 @@ package com.esketit.myapp.repositories
 import com.esketit.myapp.models.firebase.FirebaseResponse
 import com.esketit.myapp.models.firebase.FriendRequest
 import com.esketit.myapp.models.firebase.FriendRequestStatus
+import com.esketit.myapp.models.firebase.User
 import com.esketit.myapp.models.local.friends_models.FriendsRequestsModel
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.gson.reflect.TypeToken
 import io.reactivex.Observable
 import kotlin.collections.ArrayList
 
@@ -69,7 +71,7 @@ class FriendsRequestRepository {
             .whereEqualTo(FriendRequest.Key.senderKey.value, currentUserID)
             .whereEqualTo(FriendRequest.Key.statusKey.value, FriendRequestStatus.PENDING.value)
             .get().addOnSuccessListener {
-
+//                object : TypeToken<ArrayList<User>>() {}.type
                 // TODO fetch FriendRequests and put in array
                 //Observable.fromIterable()
 
