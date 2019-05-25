@@ -62,4 +62,8 @@
     <string name="general_minimumlengthis">Minimum length is</string>
     <string name="general_maximumlengthis">Maximum length is</string>
 
+    <string name="friends_tab_fragmet_title">Friends</string>
+    <string name="requests_tab_fragmet_title">Requests</string>
+    <string name="sent_tab_fragmet_title">Sent</string>
+
 </resources>

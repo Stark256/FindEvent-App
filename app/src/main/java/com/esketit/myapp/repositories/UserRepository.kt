@@ -102,4 +102,25 @@ class UserRepository{
         }
     }
 
+    fun getUserObservable(userID: String) : Observable<User> {
+
+        return Observable.create{ emitter ->
+            db.collection(COLLECTION_USER).document(userID).get()
+                .addOnSuccessListener { documentSnapshot ->
+                    val user = documentSnapshot.toObject(User::class.java)
+                    if (user != null ) {
+                        emitter.onNext(user)
+                        emitter.onComplete()
+                    } else {
+                        emitter.onError(NullPointerException())
+                    }
+
+                }.addOnFailureListener {
+                    emitter.onError(it)
+                }
+
+
+        }
+    }
+
 }
