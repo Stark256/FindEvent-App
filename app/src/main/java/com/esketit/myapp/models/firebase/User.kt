@@ -18,7 +18,7 @@ class User(var id: String = "",
             Pair(Key.nameKey.value, name),
             Pair(Key.emailKey.value, email),
             Pair(Key.avatarImgUrlKey.value, avatarImgURL),
-            Pair(Key.cordinateKey.value, cordinate),
+            Pair(Key.coordinateKey.value, cordinate),
             Pair(Key.activeTimeKey.value, activeTime),
             Pair(Key.descriptionKey.value, description)
             )
@@ -29,7 +29,7 @@ class User(var id: String = "",
         nameKey("name"),
         emailKey("email"),
         avatarImgUrlKey("avatarImgURL"),
-        cordinateKey("cordinate"),
+        coordinateKey("coordinate"),
         activeTimeKey("activeTime"),
         descriptionKey("description")
     }

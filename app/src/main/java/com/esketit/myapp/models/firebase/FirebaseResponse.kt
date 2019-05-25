@@ -7,23 +7,23 @@ class FirebaseResponse{
     var data: Any? = null
 //    var type: Int = 0
 
-    var exception: Exception? = null
+    var exception: Throwable? = null
     var localizedMessage: String = ""
     var message: String? = null
 
-    constructor(success: Boolean, exception: Exception?){
+    constructor(success: Boolean, exception: Throwable?){
         this.success = success
         exception?.let { setExceptionMessages(it) }
     }
 
-    constructor(success: Boolean, data: Any?, exception: Exception?){
+    constructor(success: Boolean, data: Any?, exception: Throwable?){
         this.success = success
         this.data = data
         exception?.let { setExceptionMessages(it) }
     }
 
 
-    private fun setExceptionMessages(exception: Exception){
+    private fun setExceptionMessages(exception: Throwable){
         this.exception = exception
         this.localizedMessage = exception.localizedMessage
         this.message = exception.message
