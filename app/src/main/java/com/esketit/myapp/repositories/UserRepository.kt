@@ -4,7 +4,6 @@ import com.esketit.myapp.models.firebase.FirebaseResponse
 import com.esketit.myapp.models.firebase.User
 import com.google.firebase.firestore.*
 import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
 import java.lang.NullPointerException
 
 class UserRepository{
@@ -50,7 +49,7 @@ class UserRepository{
     }
 
     fun updateCordinate(userID: String, cordinate: GeoPoint, firebaseResponse: (FirebaseResponse) -> Unit) {
-        db.collection(COLLECTION_USER).document(userID).update(User.Key.cordinateKey.value, cordinate)
+        db.collection(COLLECTION_USER).document(userID).update(User.Key.coordinateKey.value, cordinate)
             .addOnCompleteListener {
                 firebaseResponse(FirebaseResponse(it.isSuccessful, it.exception))
             }
@@ -58,43 +57,22 @@ class UserRepository{
     }
 
 
-    //                val friends = ArrayList<User>()
-//                val documentsSize = it.documents.size
-//                for (item in it.documents) {
-//
-//                    (item.data?.get("user") as DocumentReference).get()
-//                        .addOnCompleteListener { documentSnapshot ->
-//
-//                        if (documentSnapshot.isSuccessful) {
-//                            documentSnapshot.result?.toObject(User::class.java)?.let {
-//                                friends.add(it)
-//                                if (documentsSize == friends.size) {
-//                                    firebaseResponse(FirebaseResponse(true, null), friends)
-//                                }
-//                            }
-//                        }
-//
-//                    }
-//                }
 
     fun getFriends(userID: String, firebaseResponse: (FirebaseResponse, ArrayList<User>?) -> Unit) {
         db.collection(COLLECTION_USER).document(userID).collection(COLLECTION_FRIENDS).get()
             .addOnSuccessListener {
-                // TODO refactor the code below
 
                 Observable.fromIterable(it.documents).flatMap { getUserByReference(it) }
                     .toList().toObservable()
-
-                    .observeOn(AndroidSchedulers.mainThread())
-
-                    /*.map { result -> result }*/.subscribe({ t: MutableList<User> ->
+                    .map { result -> result }
+                    .subscribe({ t: MutableList<User> ->
                         val friends = ArrayList<User>()
                         t.forEach { friends.add(it) }
 
                         firebaseResponse(FirebaseResponse(true, null), friends)
                     },{
-                        firebaseResponse(FirebaseResponse(false, null), null)
-                    }) //{ t: MutableList<User> ->
+                        firebaseResponse(FirebaseResponse(false, it), null)
+                    })
 
 
             }.addOnFailureListener {
@@ -113,6 +91,7 @@ class UserRepository{
 
                     if (user != null ) {
                         emitter.onNext(user)
+                        emitter.onComplete()
                     } else {
                         emitter.onError(NullPointerException())
                     }
