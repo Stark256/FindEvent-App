@@ -6,7 +6,7 @@ import com.esketit.myapp.models.local.friends_models.FriendsRequestsModel
 interface FriendsListener {
 
     interface OnFriendsDataTransfer {
-        fun onFriendsNeedRefresh(arr: (ArrayList<FriendsRequestsModel>) -> Unit)
+        fun onFriendsNeedRefresh(arr: (ArrayList<User>) -> Unit)
     }
 
     interface OnRequestDataTransfer {

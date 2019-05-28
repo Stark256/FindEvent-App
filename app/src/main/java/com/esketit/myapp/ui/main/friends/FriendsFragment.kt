@@ -104,21 +104,33 @@ class FriendsFragment: BaseFragment(),
         replaceFragment(sentTabFragment)
     }
 
-    override fun onFriendsNeedRefresh(arr: (ArrayList<FriendsRequestsModel>) -> Unit) {
-        contextMain.showProgressDialog()
-        // TODO refresh
-        contextMain.hideProgressDialog()
+    override fun onFriendsNeedRefresh(arr: (ArrayList<User>) -> Unit) {
+        showProgressDialog()
+        viewModel.loadFriends { firebaseResponse, arrayList ->
+            hideProgressDialog()
+            if(firebaseResponse.success) {
+                arrayList?.let { arr(it) }
+            } else { showErrorDialog(firebaseResponse.localizedMessage) }
+        }
     }
 
     override fun onRequestNeedRefresh(arr: (ArrayList<FriendsRequestsModel>) -> Unit) {
-        contextMain.showProgressDialog()
-        // TODO refresh
-        contextMain.hideProgressDialog()
+        showProgressDialog()
+        viewModel.loadRequests  { firebaseResponse, arrayList ->
+            hideProgressDialog()
+            if(firebaseResponse.success) {
+                arrayList?.let { arr(it) }
+            } else { showErrorDialog(firebaseResponse.localizedMessage) }
+        }
     }
 
     override fun onSentNeedRefresh(arr: (ArrayList<FriendsRequestsModel>) -> Unit) {
-        contextMain.showProgressDialog()
-        // TODO refresh
-        contextMain.hideProgressDialog()
+        showProgressDialog()
+        viewModel.loadSent { firebaseResponse, arrayList ->
+            hideProgressDialog()
+            if(firebaseResponse.success) {
+                arrayList?.let { arr(it) }
+            } else { showErrorDialog(firebaseResponse.localizedMessage) }
+        }
     }
 }

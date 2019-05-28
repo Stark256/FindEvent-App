@@ -4,7 +4,7 @@ class FriendRequest(
     var id: String = "",
     var receiver: String = "",
     var sender: String = "",
-    var status: FriendRequestStatus = FriendRequestStatus.PENDING) {
+    var status: String = FriendRequestStatus.PENDING.value) {
 
 
     fun data(): Map<String, Any?>{
@@ -12,7 +12,7 @@ class FriendRequest(
             Pair(Key.idKey.value, id),
             Pair(Key.receiverKey.value, receiver),
             Pair(Key.senderKey.value, sender),
-            Pair(Key.statusKey.value, status.value)
+            Pair(Key.statusKey.value, status)
         )
     }
 

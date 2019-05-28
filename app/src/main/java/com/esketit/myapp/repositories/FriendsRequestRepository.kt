@@ -1,5 +1,6 @@
 package com.esketit.myapp.repositories
 
+import com.esketit.myapp.managers.Injector
 import com.esketit.myapp.models.firebase.FirebaseResponse
 import com.esketit.myapp.models.firebase.FriendRequest
 import com.esketit.myapp.models.firebase.FriendRequestStatus
@@ -27,7 +28,7 @@ class FriendsRequestRepository {
 
     fun updateRequestStatus(request: FriendRequest, firebaseResponse: (FirebaseResponse) -> Unit) {
         db.collection(COLLECTION_FRIEND_REQUESTS).document(request.id)
-            .update(FriendRequest.Key.statusKey.value, request.status.value)
+            .update(FriendRequest.Key.statusKey.value, request.status)
             .addOnSuccessListener {
                 firebaseResponse(FirebaseResponse(true, null))
             }.addOnFailureListener {
@@ -61,6 +62,26 @@ class FriendsRequestRepository {
             .whereEqualTo(FriendRequest.Key.statusKey.value, FriendRequestStatus.PENDING.value)
             .get().addOnSuccessListener {
 
+                val arr = ArrayList<FriendRequest>()
+
+                it.documents.forEach {
+                    it.toObject(FriendRequest::class.java)?.let {
+                        arr.add(it)
+                    }
+                }
+
+                Observable.fromIterable(arr)
+                    .flatMap { Injector.services.userRepository.getUserObservable(it, false) }
+                    .toList().toObservable()
+                    .map { result -> result }
+                    .subscribe({t: MutableList<FriendsRequestsModel> ->
+                        val result = ArrayList<FriendsRequestsModel>()
+                        t.forEach { result.add(it) }
+                        firebaseResponse(FirebaseResponse(true, null), result)
+                    }, {
+                        firebaseResponse(FirebaseResponse(false, it), null)
+                    })
+
             }.addOnFailureListener {
                 firebaseResponse(FirebaseResponse(false, it), null)
             }
@@ -71,9 +92,25 @@ class FriendsRequestRepository {
             .whereEqualTo(FriendRequest.Key.senderKey.value, currentUserID)
             .whereEqualTo(FriendRequest.Key.statusKey.value, FriendRequestStatus.PENDING.value)
             .get().addOnSuccessListener {
-//                object : TypeToken<ArrayList<User>>() {}.type
-                // TODO fetch FriendRequests and put in array
-                //Observable.fromIterable()
+               val arr = ArrayList<FriendRequest>()
+
+               it.documents.forEach {
+                   it.toObject(FriendRequest::class.java)?.let {
+                       arr.add(it)
+                   }
+               }
+
+                Observable.fromIterable(arr)
+                    .flatMap { Injector.services.userRepository.getUserObservable(it, true) }
+                    .toList().toObservable()
+                    .map { result -> result }
+                    .subscribe({t: MutableList<FriendsRequestsModel> ->
+                        val result = ArrayList<FriendsRequestsModel>()
+                        t.forEach { result.add(it) }
+                        firebaseResponse(FirebaseResponse(true, null), result)
+                    }, {
+                        firebaseResponse(FirebaseResponse(false, it), null)
+                    })
 
             }.addOnFailureListener {
                 firebaseResponse(FirebaseResponse(false, it), null)

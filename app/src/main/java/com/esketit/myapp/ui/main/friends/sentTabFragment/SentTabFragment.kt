@@ -30,5 +30,9 @@ class SentTabFragment: BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+        listener.onSentNeedRefresh {  arrayList ->
+            arrayList
+        }
     }
 }

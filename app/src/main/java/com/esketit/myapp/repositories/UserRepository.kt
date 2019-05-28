@@ -1,7 +1,9 @@
 package com.esketit.myapp.repositories
 
 import com.esketit.myapp.models.firebase.FirebaseResponse
+import com.esketit.myapp.models.firebase.FriendRequest
 import com.esketit.myapp.models.firebase.User
+import com.esketit.myapp.models.local.friends_models.FriendsRequestsModel
 import com.google.firebase.firestore.*
 import io.reactivex.Observable
 import java.lang.NullPointerException
@@ -102,14 +104,14 @@ class UserRepository{
         }
     }
 
-    fun getUserObservable(userID: String) : Observable<User> {
-
+    fun getUserObservable(friendRequest: FriendRequest, isSender: Boolean) : Observable<FriendsRequestsModel> {
+        val userID = if (isSender) friendRequest.receiver else friendRequest.sender
         return Observable.create{ emitter ->
             db.collection(COLLECTION_USER).document(userID).get()
                 .addOnSuccessListener { documentSnapshot ->
                     val user = documentSnapshot.toObject(User::class.java)
                     if (user != null ) {
-                        emitter.onNext(user)
+                        emitter.onNext(FriendsRequestsModel(user, friendRequest))
                         emitter.onComplete()
                     } else {
                         emitter.onError(NullPointerException())

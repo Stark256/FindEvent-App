@@ -157,7 +157,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/E:/Coding/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/hardware/ic_keyboard_arrow_right_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/E:/Coding/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/navigation/ic_close_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -167,7 +167,8 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_arrow_24dp" />
+                            <entry key="color" value="ec1717" />
+                            <entry key="outputName" value="ic_close" />
                             <entry key="sourceFile" value="C:\Users\stark" />
                           </map>
                         </option>

@@ -21,6 +21,8 @@ open class BaseFragment(): Fragment(){
     fun showProgressDialog(){ (activity as MainActivity).showProgressDialog() }
     fun hideProgressDialog(){ (activity as MainActivity).hideProgressDialog() }
 
+    fun showErrorDialog(error: String) { (activity as MainActivity).showError(error) }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         isFragmentCreated = true

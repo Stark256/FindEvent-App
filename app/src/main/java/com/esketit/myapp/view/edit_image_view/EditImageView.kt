@@ -34,15 +34,20 @@ class EditImageView @JvmOverloads constructor(
     private val paddingCamera: Int = context.resources.getDimension(R.dimen.edit_image_view_camera_pading_2).toInt()
     private val paddingCameraS: Int = context.resources.getDimension(R.dimen.edit_image_view_camera_pading_3).toInt()
 
-    private val rootBigSize: Int = context.resources.getDimension(R.dimen.edit_image_view_big_border_size).toInt()
-    private val rootBigRedius: Float = context.resources.getDimension(R.dimen.edit_image_view_big_border_radius)
     private val rootSmallSize: Int = context.resources.getDimension(R.dimen.edit_image_view_small_border_size).toInt()
+    private val rootMediumSize: Int = context.resources.getDimension(R.dimen.edit_image_view_medium_border_size).toInt()
+    private val rootBigSize: Int = context.resources.getDimension(R.dimen.edit_image_view_big_border_size).toInt()
     private val rootSmallRadius: Float = context.resources.getDimension(R.dimen.edit_image_view_small_border_radius)
+    private val rootMediumRadius: Float = context.resources.getDimension(R.dimen.edit_image_view_medium_border_radius)
+    private val rootBigRadius: Float = context.resources.getDimension(R.dimen.edit_image_view_big_border_radius)
 
-    private val avatarBigSize: Int = context.resources.getDimension(R.dimen.edit_image_view_big_size).toInt()
     private val avatarSmallSize: Int = context.resources.getDimension(R.dimen.edit_image_view_small_size).toInt()
-    private val avatarBigRadius: Float = context.resources.getDimension(R.dimen.edit_image_view_big_radius)
+    private val avatarMediumSize: Int = context.resources.getDimension(R.dimen.edit_image_view_medium_size).toInt()
+    private val avatarBigSize: Int = context.resources.getDimension(R.dimen.edit_image_view_big_size).toInt()
     private val avatarSmallRadius: Float = context.resources.getDimension(R.dimen.edit_image_view_small_radius)
+    private val avatarMediumRadius: Float = context.resources.getDimension(R.dimen.edit_image_view_medium_radius)
+    private val avatarBigRadius: Float = context.resources.getDimension(R.dimen.edit_image_view_big_radius)
+
 
     private val bigTextSize: Float = context.resources.getDimension(R.dimen.edit_image_view_big_text_size)
     private val smallTextSize: Float = context.resources.getDimension(R.dimen.edit_image_view_small_text_size)
@@ -138,6 +143,29 @@ class EditImageView @JvmOverloads constructor(
             it.height = avatarSmallSize
             imageView?.layoutParams = it
         }
+        textView?.textSize = 10f
+    }
+
+    fun setMediumSize() {
+        root?.layoutParams?.let {
+            it.width = rootMediumSize
+            it.height = rootMediumSize
+            root?.layoutParams = it
+        }
+        root?.radius = rootMediumRadius
+
+        cardView?.layoutParams?.let {
+            it.width = avatarMediumSize
+            it.height = avatarMediumSize
+            cardView?.layoutParams = it
+        }
+        cardView?.radius = avatarMediumRadius
+
+        imageView?.layoutParams?.let {
+            it.width = avatarMediumSize
+            it.height = avatarMediumSize
+            imageView?.layoutParams = it
+        }
         textView?.textSize = 14f
     }
 
@@ -147,7 +175,7 @@ class EditImageView @JvmOverloads constructor(
             it.height = rootBigSize
             root?.layoutParams = it
         }
-        root?.radius = rootBigRedius
+        root?.radius = rootBigRadius
 
         cardView?.layoutParams?.let {
             it.width = avatarBigSize
